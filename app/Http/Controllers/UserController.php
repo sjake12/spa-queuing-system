@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -13,9 +14,19 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = Auth::user()->load('student');
+        $user = \auth()->user()->student;
 
-        return $user;
+//        Inertia::render('AuthenticatedLayout', [
+//            'auth' => [
+//                'user' => $user,
+//            ],
+//        ]);
+
+        return Inertia::render('Dashboard', [
+            'auth' => [
+                'user' => $user,
+            ]
+        ]);
     }
 
     /**

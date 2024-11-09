@@ -19,7 +19,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <img src="https://sksu.edu.ph/wp-content/uploads/2021/04/sksu1.png" alt="SKSU-logo" className="block h-9 w-auto" />
                                 </Link>
                             </div>
 
@@ -29,6 +29,24 @@ export default function AuthenticatedLayout({ header, children }) {
                                     active={route().current('dashboard')}
                                 >
                                     Dashboard
+                                </NavLink>
+                            </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route('event')}
+                                    active={route().current('event')}
+                                >
+                                    Events
+                                </NavLink>
+                            </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route('clearance')}
+                                    active={route().current('clearance')}
+                                >
+                                    Clearance
                                 </NavLink>
                             </div>
                         </div>
@@ -139,10 +157,10 @@ export default function AuthenticatedLayout({ header, children }) {
                     <div className="border-t border-gray-200 pb-1 pt-4">
                         <div className="px-4">
                             <div className="text-base font-medium text-gray-800">
-                                {user.name}
+                                {user.first_name}
                             </div>
                             <div className="text-sm font-medium text-gray-500">
-                                {user.email}
+                                {user.last_name}
                             </div>
                         </div>
 

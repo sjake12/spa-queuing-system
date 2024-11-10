@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/create', [StudentController::class, 'create'])->name('users.create');
     Route::post('/users/create', [StudentController::class, 'store'])->name('users.create');
     Route::get('/users/edit/{student}', [StudentController::class, 'edit'])->name('users.edit');
+    Route::patch('/users/edit/{student}', [StudentController::class, 'update'])->name('users.update');
     Route::delete('/users/{student}', [StudentController::class, 'destroy'])->name('users.delete');
 
     Route::get('/clearance', fn() => Inertia::render('Clearance'))->name('clearance');

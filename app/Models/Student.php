@@ -11,6 +11,9 @@ class Student extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $primaryKey = 'student_id';
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected static function boot()
     {

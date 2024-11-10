@@ -43,7 +43,28 @@ class StudentController extends Controller
 
     public function edit(Student $student)
     {
-        return Inertia::render('Students/Edit');
+        return Inertia::render('Students/Edit', [
+            'student' => $student->toArray(),
+        ]);
+    }
+
+    public function update(Student $student)
+    {
+        \request()->validate([
+            'student_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'course' => 'required',
+        ]);
+
+        $student->update([
+            'student_id' => \request('student_id'),
+            'first_name' => \request('first_name'),
+            'last_name' => \request('last_name'),
+            'course' => \request('course'),
+        ]);
+
+        return redirect()->route('users');
     }
 
     public function destroy(Student $student)

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\Student;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -25,11 +27,6 @@ class DatabaseSeeder extends Seeder
             'course' => 'Computer Science',
         ]);
 
-        User::create([
-            'username' => '28196',
-            'password' => Hash::make('1234'),
-        ]);
-
         Student::factory()->create([
             'student_id' => '28197',
             'first_name' => 'Ralph Vincent',
@@ -37,9 +34,28 @@ class DatabaseSeeder extends Seeder
             'course' => 'Computer Science',
         ]);
 
-        User::create([
-            'username' => '28197',
-            'password' => Hash::make('1234'),
+        Student::factory()->create([
+            'student_id' => '28565',
+            'first_name' => 'Stephen Jake',
+            'last_name' => 'Apostol',
+            'course' => 'Computer Science',
         ]);
+
+        $master_admin = Role::create(['name' => 'master_admin']);
+        $admin = Role::create(['name' => 'admin']);
+        $user = Role::create(['name' => 'user']);
+
+        $manageUsers = Permission::create(['name' => 'manage_users']);
+        $addUser = Permission::create(['name' => 'add_user']);
+        $editUser = Permission::create(['name' => 'edit_user']);
+        $manageEvents = Permission::create(['name' => 'manage_events']);
+        $viewEvents = Permission::create(['name' => 'view_events']);
+
+        $master_admin->permissions()->attach([$addUser->id, $editUser->id, $manageEvents->id, $viewEvents->id, $manageUsers->id]);
+        $admin->permissions()->attach([$manageEvents->id, $viewEvents->id]);
+        $user->permissions()->attach($viewEvents->id);
+
+        User::find(1)->roles()->attach($admin->id);
+        User::find(3)->roles()->attach($master_admin->id);
     }
 }

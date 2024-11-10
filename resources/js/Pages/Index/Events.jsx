@@ -1,5 +1,7 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.jsx';
 import { Head, Link, usePage } from '@inertiajs/react';
+import PermissionGate from '@/Pages/Auth/PermissionGate.jsx';
+import PrimaryButton from "@/Components/PrimaryButton.jsx";
 
 export default function Dashboard() {
     const { events } = usePage().props;
@@ -7,16 +9,26 @@ export default function Dashboard() {
     return (
         <AuthenticatedLayout
             header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Events
-                </h2>
+                <div className="flex justify-between">
+                    <h2 className="text-xl font-semibold leading-tight text-gray-800" >
+                        Events
+                    </h2 >
+
+                    <PermissionGate permission="manage_events" >
+                        <Link href={route('event.create')} >
+                            <PrimaryButton>
+                                Create Event
+                            </PrimaryButton >
+                        </Link>
+                    </PermissionGate >
+                </div>
             }
         >
             <Head title="Events" />
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+            <div className="py-12" >
+                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8" >
+                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg" >
                         <div className="p-6 text-gray-900" >
                             <table className="min-w-full divide-y divide-gray-200" >
                                 <thead >

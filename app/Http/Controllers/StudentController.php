@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Student;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+class StudentController extends Controller
+{
+    public function index()
+    {
+        $students = Student::all();
+
+        return Inertia::render('Index/Students', [
+            'students' => $students->toArray(),
+        ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Students/Create');
+    }
+
+    public function store()
+    {
+        \request()->validate([
+            'student_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'course' => 'required',
+        ]);
+
+        Student::create([
+            'student_id' => \request('student_id'),
+            'first_name' => \request('first_name'),
+            'last_name' => \request('last_name'),
+            'course' => \request('course'),
+        ]);
+
+        return redirect()->route('users');
+    }
+
+    public function edit(Student $student)
+    {
+        return Inertia::render('Students/Edit');
+    }
+
+    public function destroy(Student $student)
+    {
+        return Inertia::reload();
+    }
+}

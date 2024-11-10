@@ -12,6 +12,18 @@ class Student extends Model
 
     protected $guarded = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($student) {
+            User::create([
+                'username' => $student->student_id,
+                'password' => bcrypt('1234'),
+            ]);
+        });
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'username', 'student_id');

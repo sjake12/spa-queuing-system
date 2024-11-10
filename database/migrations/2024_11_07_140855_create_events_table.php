@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('event_id');
             $table->string('event_name');
             $table->date('event_date');
-            $table->time('event_time');
+            $table->string('event_time');
             $table->boolean('required');
             $table->timestamps();
         });

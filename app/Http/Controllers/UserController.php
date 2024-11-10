@@ -14,19 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = \auth()->user()->student;
-
-//        Inertia::render('AuthenticatedLayout', [
-//            'auth' => [
-//                'user' => $user,
-//            ],
-//        ]);
-
-        return Inertia::render('Dashboard', [
-            'auth' => [
-                'user' => $user,
-            ]
-        ]);
+        return Inertia::render('Dashboard');
     }
 
     /**

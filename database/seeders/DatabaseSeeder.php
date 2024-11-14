@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Event;
+use App\Models\Payments;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\Student;
@@ -41,21 +43,23 @@ class DatabaseSeeder extends Seeder
             'course' => 'Computer Science',
         ]);
 
-        $master_admin = Role::create(['name' => 'master_admin']);
-        $admin = Role::create(['name' => 'admin']);
-        $user = Role::create(['name' => 'user']);
+        Payments::factory()->create([
+           'amount' => '268',
+           'for' => 'Intramurals',
+            'office' => 'CCSO',
+            'deadline' => '2021-09-30',
+        ]);
 
-        $manageUsers = Permission::create(['name' => 'manage_users']);
-        $addUser = Permission::create(['name' => 'add_user']);
-        $editUser = Permission::create(['name' => 'edit_user']);
-        $manageEvents = Permission::create(['name' => 'manage_events']);
-        $viewEvents = Permission::create(['name' => 'view_events']);
+        Event::factory()->create([
+            'event_name' => '3rd General Assembly Meeting',
+            'event_date' => '2021-09-30',
+            'office' => 'SBO',
+            'required' => true,
+            'created_by' => 'Lee Robin Montenegro',
+        ]);
 
-        $master_admin->permissions()->attach([$addUser->id, $editUser->id, $manageEvents->id, $viewEvents->id, $manageUsers->id]);
-        $admin->permissions()->attach([$manageEvents->id, $viewEvents->id]);
-        $user->permissions()->attach($viewEvents->id);
-
-        User::find(1)->roles()->attach($admin->id);
-        User::find(3)->roles()->attach($master_admin->id);
+        $this->call([
+            RoleAndPermissionSeeder::class,
+        ]);
     }
 }

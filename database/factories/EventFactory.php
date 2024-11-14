@@ -19,7 +19,7 @@ class EventFactory extends Factory
         return [
             'event_name' => fake()->title(),
             'event_date' => fake()->date(),
-            'event_time' => fake()->time(),
+            'office' => fake()->time(),
             'required' => fake()->boolean(),
         ];
     }

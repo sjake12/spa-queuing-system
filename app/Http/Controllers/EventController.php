@@ -23,14 +23,15 @@ class EventController extends Controller
         \request()->validate([
             'event_name' => ['required', 'string'],
             'event_date' => ['required', 'date'],
-            'event_time' => ['required', 'string'],
+            'office' => ['required', 'string'],
             'isRequired' => ['boolean'],
         ]);
 
         Event::factory()->create([
             'event_name' => \request('event_name'),
             'event_date' => \request('event_date'),
-            'event_time' => \request('event_time'),
+            'office' => \request('office'),
+            'created_by' => auth()->user()->student->first_name . ' ' . auth()->user()->student->last_name,
             'required' => \request('isRequired'),
         ]);
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
@@ -27,6 +28,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/edit/{student}', [StudentController::class, 'edit'])->name('users.edit');
     Route::patch('/users/edit/{student}', [StudentController::class, 'update'])->name('users.update');
     Route::delete('/users/{student}', [StudentController::class, 'destroy'])->name('users.delete');
+
+    Route::get('/payments', [PaymentsController::class, 'index'])->name('payments');
+    Route::get('/payments/create', [PaymentsController::class, 'create'])->name('payments.create');
+    Route::post('/payments/create', [PaymentsController::class, 'store'])->name('payments.store');
+
+    Route::get('/queue', fn() => Inertia::render('Queue'))->name('queue');
 
     Route::get('/clearance', fn() => Inertia::render('Clearance'))->name('clearance');
 });

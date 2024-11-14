@@ -1,42 +1,42 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import { Head, Link, useForm } from "@inertiajs/react";
-import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import InputLabel from "@/Components/InputLabel.jsx";
 import TextInput from "@/Components/TextInput.jsx";
-import Checkbox from "@/Components/Checkbox.jsx";
 import InputError from "@/Components/InputError.jsx";
+import Checkbox from "@/Components/Checkbox.jsx";
+import PrimaryButton from "@/Components/PrimaryButton.jsx";
 
 export default function Create(){
     const { data, setData, post, errors } = useForm({
-        event_name: '',
-        event_date: '',
-        office: '',
-        isRequired: true,
+        'amount': '',
+        'for': '',
+        'office': '',
+        'deadline': '',
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('event.create'));
+        post(route('payments.store'));
     }
 
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <h2 className="text-xl font-semibold leading-tight text-gray-800" >
-                        Create Event
+                        Create Payment
                     </h2 >
 
-                    <Link href={route('event')} >
+                    <Link href={route('payments')} >
                         <PrimaryButton className="bg-red-600 hover:bg-red-500">
                             Back
-                        </PrimaryButton>
-                    </Link>
-                </div>
+                        </PrimaryButton >
+                    </Link >
+                </div >
             }
         >
-            <Head title="Create Events" />
+            <Head title="Create Payment" />
 
             <div className="py-12" >
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8" >
@@ -44,33 +44,33 @@ export default function Create(){
                         <div className="p-6 text-gray-900" >
                             <form onSubmit={submit}>
                                 <div >
-                                    <InputLabel htmlFor="event_name" value="Event Name" />
+                                    <InputLabel htmlFor="amount" value="Amount" />
 
                                     <TextInput
-                                        id="event_name"
+                                        id="amount"
                                         type="text"
-                                        name="event_name"
+                                        name="amount"
                                         className="mt-1 block w-full"
-                                        value={data.event_name}
-                                        onChange={(e) => setData('event_name', e.target.value)}
+                                        value={data.amount}
+                                        onChange={(e) => setData('amount', e.target.value)}
                                     />
 
-                                    <InputError message={errors.event_name} className="mt-2" />
+                                    <InputError message={errors.amount} className="mt-2" />
                                 </div >
 
                                 <div className="mt-4">
-                                    <InputLabel htmlFor="event_date" value="Event Date" />
+                                    <InputLabel htmlFor="for" value="Payment For" />
 
                                     <TextInput
-                                        id="event_date"
-                                        type="date"
-                                        name="event_date"
+                                        id="for"
+                                        type="text"
+                                        name="for"
                                         className="mt-1 block w-full"
-                                        value={data.event_date}
-                                        onChange={(e) => setData('event_date', e.target.value)}
+                                        value={data.for}
+                                        onChange={(e) => setData('for', e.target.value)}
                                     />
 
-                                    <InputError message={errors.event_date} className="mt-2" />
+                                    <InputError message={errors.for} className="mt-2" />
                                 </div >
 
                                 <div className="mt-4">
@@ -85,29 +85,30 @@ export default function Create(){
                                         onChange={(e) => setData('office', e.target.value)}
                                     />
 
-                                    <InputError message={errors.event_time} className="mt-2" />
+                                    <InputError message={errors.office} className="mt-2" />
                                 </div >
 
                                 <div className="mt-4">
-                                    <label className="flex items-center">
-                                        <Checkbox
-                                            name="isRequired"
-                                            checked={data.isRequired}
-                                            onChange={(e) => setData('isRequired', e.target.checked)}
-                                        />
+                                    <InputLabel htmlFor="deadline" value="Office" />
 
-                                        <span className="ms-2 text-sm text-gray-600">
-                                            Required
-                                        </span>
-                                    </label>
+                                    <TextInput
+                                        id="deadline"
+                                        type="date"
+                                        name="deadline"
+                                        className="mt-1 block w-full"
+                                        value={data.deadline}
+                                        onChange={(e) => setData('deadline', e.target.value)}
+                                    />
+
+                                    <InputError message={errors.deadline} className="mt-2" />
                                 </div >
 
                                 <div>
                                     <PrimaryButton
-                                        className="mt-4"
+                                        className="mt-6"
                                         onClick={post}
                                     >
-                                        Create Event
+                                        Create payment
                                     </PrimaryButton>
                                 </div>
                             </form >

@@ -1,30 +1,30 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.jsx';
-import { Head, Link, usePage } from '@inertiajs/react';
-import PermissionGate from '@/Pages/Auth/PermissionGate.jsx';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
+import { Head, Link, usePage } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
+import PermissionGate from "@/Pages/Auth/PermissionGate.jsx";
 
-export default function Dashboard() {
-    const { events } = usePage().props;
+export default function Payments(){
+    const { payments } = usePage().props;
 
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <h2 className="text-xl font-semibold leading-tight text-gray-800" >
-                        Events
+                        Payments
                     </h2 >
 
-                    <PermissionGate permission="manage_events" >
-                        <Link href={route('event.create')} >
+                    <PermissionGate permission={'manage_payments'} >
+                        <Link href={route('payments.create')} >
                             <PrimaryButton>
-                                Create Event
-                            </PrimaryButton >
+                                Create Payments
+                            </PrimaryButton>
                         </Link>
-                    </PermissionGate >
+                    </PermissionGate>
                 </div>
             }
         >
-            <Head title="Events" />
+            <Head title="Payments" />
 
             <div className="py-12" >
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8" >
@@ -34,64 +34,38 @@ export default function Dashboard() {
                                 <thead >
                                     <tr >
                                         <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
-                                            Event Name
+                                            Amount
                                         </th >
                                         <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
-                                            Date
+                                            Payment For
                                         </th >
                                         <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
                                             Office
                                         </th >
                                         <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
-                                            Required
+                                            Deadline
                                         </th >
                                     </tr >
                                 </thead >
                                 <tbody className="bg-white divide-y divide-gray-200" >
-                                    {events.data.map((event) => (
-                                        <tr key={event.id} >
+                                    {payments.map((payment) => (
+                                        <tr key={payment.id} >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                {event.event_name}
+                                                {payment.amount}
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                {event.event_date}
+                                                {payment.for}
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                {event.office}
+                                                {payment.office}
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                {event.required ? 'Yes' : 'No'}
+                                                {payment.deadline}
                                             </td >
                                         </tr >
                                     ))}
                                 </tbody >
                             </table >
-                            <div className="mt-4 flex gap-2" >
-                                {events.links.map((link, index) => {
-                                    if (!link.url) {
-                                        return (
-                                            <span
-                                                key={index}
-                                                className="px-3 py-1 border rounded text-gray-400"
-                                                dangerouslySetInnerHTML={{ __html: link.label }}
-                                            />
-                                        );
-                                    }
-
-                                    return (
-                                        <Link
-                                            key={index}
-                                            href={link.url}
-                                            className={`px-3 py-1 border rounded ${
-                                                link.active ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
-                                            }`}
-                                            preserveScroll
-                                            preserveState
-                                            dangerouslySetInnerHTML={{ __html: link.label }}
-                                        />
-                                    );
-                                })}
-                            </div >
                         </div >
                     </div >
                 </div >

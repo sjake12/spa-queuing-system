@@ -6,10 +6,13 @@ use App\Models\Event;
 use App\Models\Payments;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\SigningOffice;
 use App\Models\Student;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -43,23 +46,27 @@ class DatabaseSeeder extends Seeder
             'course' => 'Computer Science',
         ]);
 
-        Payments::factory()->create([
-           'amount' => '268',
-           'for' => 'Intramurals',
-            'office' => 'CCSO',
-            'deadline' => '2021-09-30',
+        SigningOffice::factory()->create([
+           'office_name' => 'SBO',
+            'signing_sequence' => '4',
         ]);
 
-        Event::factory()->create([
-            'event_name' => '3rd General Assembly Meeting',
-            'event_date' => '2021-09-30',
-            'office' => 'SBO',
-            'required' => true,
-            'created_by' => 'Lee Robin Montenegro',
+        Payments::factory()->create([
+            'amount' => '268',
+            'for' => 'Intramurals',
+            'office' => 'CCSO',
+            'deadline' => '2021-09-30',
+            'payment_type' => 'Contribution',
+        ]);
+
+        DB::table('settings')->insert([
+            'key' => 'isClearanceOnGoing',
+            'value' => false,
         ]);
 
         $this->call([
             RoleAndPermissionSeeder::class,
+            EventSeeder::class,
         ]);
     }
 }

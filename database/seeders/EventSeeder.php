@@ -13,6 +13,28 @@ class EventSeeder extends Seeder
      */
     public function run(): void
     {
-        Event::factory(20)->create();
+        Event::factory()->create([
+            'event_name' => '3rd General Assembly Meeting',
+            'event_date' => '2021-09-30',
+            'signing_office' => 1,
+            'required' => true,
+            'created_by' => '28196',
+        ]);
+
+        Event::factory()->create([
+            'event_name' => 'Post Valentines Escapade',
+            'event_date' => '2021-09-30',
+            'signing_office' => 1,
+            'required' => true,
+            'created_by' => '28196',
+        ]);
+
+        Event::factory()->create([
+            'event_name' => '2nd General Assembly Meeting',
+            'event_date' => '2021-09-30',
+            'signing_office' => 1,
+            'required' => true,
+            'created_by' => '28196',
+        ]);
     }
 }

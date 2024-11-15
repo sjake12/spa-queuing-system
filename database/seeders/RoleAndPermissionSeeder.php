@@ -26,12 +26,42 @@ class RoleAndPermissionSeeder extends Seeder
         $viewEvents = Permission::create(['name' => 'view_events']);
         $manage_payments = Permission::create(['name' => 'manage_payments']);
         $viewPayments = Permission::create(['name' => 'view_payments']);
+        // Clearance Permissions
+        $start_clearance = Permission::create(['name' => 'start_clearance']);
+        $end_clearance = Permission::create(['name' => 'end_clearance']);
+        $manage_clearances = Permission::create(['name' => 'manage_clearances']);
+        $view_clearances = Permission::create(['name' => 'view_clearances']);
 
-        $master_admin->permissions()->attach([$addUser->id, $editUser->id, $manageEvents->id, $viewEvents->id, $manageUsers->id, $manage_payments->id, $viewPayments->id]);
-        $admin->permissions()->attach([$manageEvents->id, $viewEvents->id, $manage_payments->id, $viewPayments->id]);
-        $user->permissions()->attach([$viewEvents->id, $viewPayments->id]);
+        $master_admin->permissions()->attach([
+            $addUser->id,
+            $editUser->id,
+            $manageEvents->id,
+            $viewEvents->id,
+            $manageUsers->id,
+            $manage_payments->id,
+            $viewPayments->id,
+            $start_clearance->id,
+            $end_clearance->id,
+            $manage_clearances->id,
+            $view_clearances->id,
+        ]);
+
+        $admin->permissions()->attach([
+            $manageEvents->id,
+            $viewEvents->id,
+            $manage_payments->id,
+            $viewPayments->id,
+            $manage_clearances->id,
+        ]);
+
+        $user->permissions()->attach([
+            $viewEvents->id,
+            $viewPayments->id,
+            $view_clearances->id,
+        ]);
 
         User::find(1)->roles()->attach($admin->id);
+        User::find(2)->roles()->attach($user->id);
         User::find(3)->roles()->attach($master_admin->id);
     }
 }

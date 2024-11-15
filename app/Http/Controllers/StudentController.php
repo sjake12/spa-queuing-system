@@ -10,7 +10,7 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::all();
+        $students = Student::all()->except(auth()->user()->student->student_id);
 
         return Inertia::render('Index/Students', [
             'students' => $students->toArray(),

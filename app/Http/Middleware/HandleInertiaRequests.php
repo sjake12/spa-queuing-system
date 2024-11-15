@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -29,6 +30,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $isClearanceOnGoing = DB::table('settings')
+            ->where('key', 'isClearanceOnGoing')
+            ->value('value');
+
         return [
             ...parent::share($request),
             'auth' => [
@@ -40,6 +45,7 @@ class HandleInertiaRequests extends Middleware
                         ->values(),
                     'student' => $request->user()->student,
                 ] : null,
+                'isClearanceOnGoing' => $isClearanceOnGoing,
             ],
         ];
     }

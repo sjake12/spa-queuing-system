@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\SigningOffice;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,7 +12,20 @@ class EventController extends Controller
 {
     public function index()
     {
-        return Event::latest()->paginate(10);
+        $events = Event::all();
+
+        return Inertia::render('Index/Events', [
+            'events' => $events->map(function ($event) {
+                return [
+                    'id' => $event->event_id,
+                    'event_name' => $event->event_name,
+                    'event_date' => $event->event_date,
+                    'office' => SigningOffice::where('office_id', $event->signing_office)->first()->office_name,
+                    'created_by' => Student::where('student_id', $event->created_by)->first()->first_name . ' ' . Student::where('student_id', $event->created_by)->first()->last_name,
+                    'required' => $event->required,
+                ];
+            }),
+        ]);
     }
 
     public function create()

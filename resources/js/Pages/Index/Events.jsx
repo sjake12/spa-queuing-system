@@ -48,7 +48,7 @@ export default function Dashboard() {
                                     </tr >
                                 </thead >
                                 <tbody className="bg-white divide-y divide-gray-200" >
-                                    {events.data.map((event) => (
+                                    {events.map((event) => (
                                         <tr key={event.id} >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
                                                 {event.event_name}
@@ -66,32 +66,32 @@ export default function Dashboard() {
                                     ))}
                                 </tbody >
                             </table >
-                            <div className="mt-4 flex gap-2" >
-                                {events.links.map((link, index) => {
-                                    if (!link.url) {
-                                        return (
-                                            <span
-                                                key={index}
-                                                className="px-3 py-1 border rounded text-gray-400"
-                                                dangerouslySetInnerHTML={{ __html: link.label }}
-                                            />
-                                        );
-                                    }
+                            {/*<div className="mt-4 flex gap-2" >*/}
+                            {/*    {events.links.map((link, index) => {*/}
+                            {/*        if (!link.url) {*/}
+                            {/*            return (*/}
+                            {/*                <span*/}
+                            {/*                    key={index}*/}
+                            {/*                    className="px-3 py-1 border rounded text-gray-400"*/}
+                            {/*                    dangerouslySetInnerHTML={{ __html: link.label }}*/}
+                            {/*                />*/}
+                            {/*            );*/}
+                            {/*        }*/}
 
-                                    return (
-                                        <Link
-                                            key={index}
-                                            href={link.url}
-                                            className={`px-3 py-1 border rounded ${
-                                                link.active ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
-                                            }`}
-                                            preserveScroll
-                                            preserveState
-                                            dangerouslySetInnerHTML={{ __html: link.label }}
-                                        />
-                                    );
-                                })}
-                            </div >
+                            {/*        return (*/}
+                            {/*            <Link*/}
+                            {/*                key={index}*/}
+                            {/*                href={link.url}*/}
+                            {/*                className={`px-3 py-1 border rounded ${*/}
+                            {/*                    link.active ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'*/}
+                            {/*                }`}*/}
+                            {/*                preserveScroll*/}
+                            {/*                preserveState*/}
+                            {/*                dangerouslySetInnerHTML={{ __html: link.label }}*/}
+                            {/*            />*/}
+                            {/*        );*/}
+                            {/*    })}*/}
+                            {/*</div >*/}
                         </div >
                     </div >
                 </div >

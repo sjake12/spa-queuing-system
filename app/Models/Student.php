@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
 {
@@ -15,7 +16,7 @@ class Student extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
@@ -27,8 +28,13 @@ class Student extends Model
         });
     }
 
-    public function user()
+    public function user(): HasOne
     {
         return $this->hasOne(User::class, 'username', 'student_id');
+    }
+
+    public function clearance(): HasOne
+    {
+        return $this->hasOne(Clearance::class, 'student_id', 'student_id');
     }
 }

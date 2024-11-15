@@ -15,9 +15,13 @@ return new class extends Migration
             $table->id('event_id');
             $table->string('event_name');
             $table->date('event_date');
-            $table->string('office');
+            $table->foreignId('signing_office')->constrained('signing_offices', 'office_id');
             $table->boolean('required');
             $table->string('created_by');
+            $table->foreign('created_by')
+                ->references('student_id')
+                ->on('students')
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

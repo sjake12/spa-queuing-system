@@ -15,4 +15,19 @@ class Event extends Model
     {
         return $this->hasMany(EventAttendance::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($event) {
+            $students = \App\Models\Student::all();
+
+            $attendances = $students->map(function ($student) {
+               return ['student_id' => $student->student_id];
+            })->toArray();
+
+            $event->eventAttendances()->createMany($attendances);
+        });
+    }
 }

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('office');
             $table->date('deadline');
             $table->string('payment_type');
-            $table->boolean('is_paid')->default(false);
             $table->timestamps();
         });
     }

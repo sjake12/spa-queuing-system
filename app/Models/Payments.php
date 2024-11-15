@@ -4,9 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Payments extends Model
 {
     /** @use HasFactory<\Database\Factories\PaymentsFactory> */
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function paymentStatus(): HasMany
+    {
+        return $this->hasMany(PaymentStatus::class);
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(function ($payment) {
+            $students = \App\Models\Student::all();
+
+            $paymentStatus = $students->map(function ($student) {
+                return ['student_id' => $student->student_id];
+            })->toArray();
+
+            $payment->paymentStatus()->createMany($paymentStatus);
+        });
+    }
 }

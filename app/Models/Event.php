@@ -16,7 +16,7 @@ class Event extends Model
         return $this->hasMany(EventAttendance::class);
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 

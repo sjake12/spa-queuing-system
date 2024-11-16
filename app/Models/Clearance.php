@@ -13,6 +13,28 @@ class Clearance extends Model
     /** @use HasFactory<\Database\Factories\ClearanceFactory> */
     use HasFactory;
 
+    protected $guarded = [];
+    protected $primaryKey = 'clearance_id';
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(function ($clearance) {
+            $clearance->refresh();
+
+            $signingOffices = SigningOffice::all();
+
+            $signingOfficeStatuses = $signingOffices->map(function ($signingOffice) use ($clearance) {
+                return [
+                    'clearance_id' => $clearance->clearance_id,
+                    'signing_office_id' => $signingOffice->office_id
+                ];
+            })->toArray();
+
+            $clearance->signingOfficeStatuses()->createMany($signingOfficeStatuses);
+        });
+    }
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id', 'student_id');
@@ -21,6 +43,11 @@ class Clearance extends Model
     public function signingOffices(): BelongsToMany
     {
         return $this->belongsToMany(SigningOffice::class);
+    }
+
+    public function signingOfficeStatuses(): HasMany
+    {
+        return $this->hasMany(ClearanceSigningOfficeStatus::class, 'clearance_id', 'clearance_id');
     }
 
     public function eventAttendance(): HasMany
@@ -32,5 +59,6 @@ class Clearance extends Model
     {
         return $this->hasMany(Payments::class);
     }
+
 
 }

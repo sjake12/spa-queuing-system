@@ -12,6 +12,9 @@ class SigningOffice extends Model
     /** @use HasFactory<\Database\Factories\SigningOfficeFactory> */
     use HasFactory;
 
+    protected $guarded = [];
+    protected $primaryKey = 'office_id';
+
     public function payments(): HasMany
     {
         return $this->hasMany(Payments::class);

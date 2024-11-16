@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('signing_office_requirements', function (Blueprint $table) {
             $table->id();
-            $table->string('amount');
-            $table->string('for');
-            $table->foreignId('office_id')
+            $table->foreignId('signing_office_id')
                 ->constrained('signing_offices', 'office_id')
                 ->cascadeOnDelete();
-            $table->date('deadline');
-            $table->string('payment_type');
+            $table->string('requirement_name');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('signing_office_requirements');
     }
 };

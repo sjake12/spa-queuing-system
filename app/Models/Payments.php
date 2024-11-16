@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Payments extends Model
@@ -16,6 +17,11 @@ class Payments extends Model
     public function paymentStatus(): HasMany
     {
         return $this->hasMany(PaymentStatus::class);
+    }
+
+    public function signingOffice(): BelongsTo
+    {
+        $this->belongsTo(SigningOffice::class);
     }
 
     protected static function boot(): void

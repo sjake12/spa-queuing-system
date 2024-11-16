@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import { Head, Link, usePage } from "@inertiajs/react";
 import PermissionGate from "@/Pages/Auth/PermissionGate.jsx";
 import React from "react";
+import ClearanceStatus from "@/Pages/Clearance/Partials/ClearanceStatus.jsx";
 
 export default function Clearance() {
     const { isClearanceOnGoing } = usePage().props.auth;
@@ -23,11 +24,10 @@ export default function Clearance() {
                             {isClearanceOnGoing ? (
                                 <>
                                     <PermissionGate permission="view_clearances" >
-                                        <p >Clearance is already ongoing...</p >
+                                        <ClearanceStatus />
                                     </PermissionGate>
 
                                     <PermissionGate permission="end_clearance" >
-                                        <p >Clearance is already ongoing...</p >
                                         <Link
                                             href={route('clearance.end')}
                                             method="post"

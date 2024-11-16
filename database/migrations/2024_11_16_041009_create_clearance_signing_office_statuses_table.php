@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clearance_signing_office', function (Blueprint $table) {
+        Schema::create('clearance_signing_office_statuses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('clearance_id')
                 ->constrained('clearances', 'clearance_id')
@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('signing_office_id')
                 ->constrained('signing_offices', 'office_id')
                 ->cascadeOnDelete();
+            $table->boolean('is_approved')->default(false);
+            $table->boolean('is_pending')->default(true);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clearance_signing_office');
+        Schema::dropIfExists('clearance_signing_office_statuses');
     }
 };

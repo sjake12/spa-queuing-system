@@ -5,7 +5,7 @@ import PermissionGate from "@/Pages/Auth/PermissionGate.jsx";
 
 export default function Payments(){
     const { payments } = usePage().props;
-
+    console.log(payments);
     return (
         <AuthenticatedLayout
             header={
@@ -30,6 +30,9 @@ export default function Payments(){
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8" >
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg" >
                         <div className="p-6 text-gray-900" >
+                            <h2 className="font-semibold text-2xl mb-6">
+                                Your Payments
+                            </h2>
                             <table className="min-w-full divide-y divide-gray-200" >
                                 <thead >
                                     <tr >
@@ -44,6 +47,9 @@ export default function Payments(){
                                         </th >
                                         <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
                                             Deadline
+                                        </th >
+                                        <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
+                                            Action
                                         </th >
                                     </tr >
                                 </thead >
@@ -61,6 +67,11 @@ export default function Payments(){
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
                                                 {payment.deadline}
+                                            </td >
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
+                                                <Link className="py-2 px-4 bg-green-600 hover:bg-green-500 text-white font-semibold rounded">
+                                                    Details
+                                                </Link>
                                             </td >
                                         </tr >
                                     ))}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payments;
+use App\Models\SigningOffice;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,8 +11,18 @@ class PaymentsController extends Controller
 {
     public function index()
     {
+        $payments =  Payments::all();
+
         return Inertia::render('Index/Payments', [
-            'payments' => Payments::all()->toArray(),
+            'payments' => $payments->map(function ($payment) {
+                return [
+                    'id' => $payment->id,
+                    'amount' => $payment->amount,
+                    'for' => $payment->for,
+                    'office' => SigningOffice::where('office_id', $payment->office_id)->first()->office_name,
+                    'deadline' => $payment->deadline,
+                ];
+            }),
         ]);
     }
 

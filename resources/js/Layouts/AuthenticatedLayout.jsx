@@ -17,64 +17,65 @@ export default function AuthenticatedLayout({ header, children }) {
             <nav className="border-b border-gray-100 bg-white">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
-                        <div className="flex">
-                            <div className="flex shrink-0 items-center">
-                                <Link href="/">
-                                    <img src="https://sksu.edu.ph/wp-content/uploads/2021/04/sksu1.png" alt="SKSU-logo" className="block h-9 w-auto" />
-                                </Link>
-                            </div>
+                        <div className="flex" >
+                            <div className="flex shrink-0 items-center" >
+                                <Link href="/" >
+                                    <img src="https://sksu.edu.ph/wp-content/uploads/2021/04/sksu1.png" alt="SKSU-logo"
+                                         className="block h-9 w-auto" />
+                                </Link >
+                            </div >
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                 <NavLink
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
                                 >
                                     Dashboard
-                                </NavLink>
-                            </div>
+                                </NavLink >
+                            </div >
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                 <NavLink
                                     href={route('event')}
                                     active={route().current('event')}
                                 >
                                     Events
-                                </NavLink>
-                            </div>
+                                </NavLink >
+                            </div >
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                 <NavLink
                                     href={route('clearance')}
                                     active={route().current('clearance')}
                                 >
                                     Clearance
-                                </NavLink>
-                            </div>
+                                </NavLink >
+                            </div >
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                 <NavLink
                                     href={route('payments')}
                                     active={route().current('payments')}
                                 >
                                     Payments
-                                </NavLink>
-                            </div>
+                                </NavLink >
+                            </div >
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                 <NavLink
                                     href={route('queue')}
                                     active={route().current('queue')}
                                 >
                                     Queue
-                                </NavLink>
-                            </div>
-                        </div>
+                                </NavLink >
+                            </div >
+                        </div >
 
-                        <div className="hidden sm:ms-6 sm:flex sm:items-center">
-                            <div className="relative ms-3">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
+                        <div className="hidden sm:ms-6 sm:flex sm:items-center" >
+                            <div className="relative ms-3" >
+                                <Dropdown >
+                                    <Dropdown.Trigger >
+                                        <span className="inline-flex rounded-md" >
                                             <button
                                                 type="button"
                                                 className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
@@ -92,7 +93,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                                         clipRule="evenodd"
                                                     />
-                                                </svg>
+                                                </svg >
                                             </button>
                                         </span>
                                     </Dropdown.Trigger>

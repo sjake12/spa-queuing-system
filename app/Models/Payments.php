@@ -16,7 +16,7 @@ class Payments extends Model
 
     public function paymentStatus(): HasMany
     {
-        return $this->hasMany(PaymentStatus::class);
+        return $this->hasMany(PaymentStatus::class,'payment_id','payment_id');
     }
 
     public function signingOffice(): BelongsTo

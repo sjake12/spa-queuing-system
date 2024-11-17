@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payments;
+use App\Models\PaymentStatus;
 use App\Models\SigningOffice;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PaymentsController extends Controller
@@ -21,8 +21,22 @@ class PaymentsController extends Controller
                     'for' => $payment->for,
                     'office' => SigningOffice::where('office_id', $payment->office_id)->first()->office_name,
                     'deadline' => $payment->deadline,
+                    'status' => PaymentStatus::where('payments_id', $payment->id)->first()->status,
                 ];
             }),
+        ]);
+    }
+
+    public function show(Payments $payments)
+    {
+        return Inertia::render('Payments/Show', [
+            'payment' => [
+                'amount' => $payments->amount,
+                'for' => $payments->for,
+                'office' => SigningOffice::where('office_id', $payments->office_id)->first()->office_name,
+                'deadline' => $payments->deadline,
+                'type' => $payments->payment_type,
+            ],
         ]);
     }
 

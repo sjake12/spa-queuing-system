@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     // Payments
     Route::get('/payments', [PaymentsController::class, 'index'])->name('payments');
     Route::get('/payments/create', [PaymentsController::class, 'create'])->name('payments.create');
+    Route::get('/payments/{payments}', [PaymentsController::class, 'show'])->name('payments.show');
     Route::post('/payments/create', [PaymentsController::class, 'store'])->name('payments.store');
 
     // Queue

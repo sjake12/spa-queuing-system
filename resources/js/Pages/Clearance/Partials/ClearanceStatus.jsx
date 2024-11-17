@@ -28,16 +28,17 @@ export default function ClearanceStatus() {
             <h2 className="font-semibold text-2xl mb-6">
                 Clearance Status
             </h2>
-            <div className="bg-neutral-100 p-8 rounded-md shadow-md">
-                <div className="flex flex-col gap-6">
-                    {data.map((item, index) => (
-                        <Link key={index} className="flex hover:bg-gray-300 py-2 px-6 rounded-md" href={route('clearance')}>
-                            <h3 >{item.office} :</h3 >
-                            <p >{item.status}</p >
-                        </Link >
-                    ))}
-                </div >
-            </div >
+            <div className="flex flex-col gap-4">
+                {data.map((item, index) => (
+                    <Link key={index}
+                          className="flex py-6 px-6 border border-neutral-200 rounded-md justify-between shadow-sm hover:scale-[1.01] transition-transform"
+                          href={route('clearance')}
+                    >
+                        <h3 className="font-bold text-lg">{item.office}</h3 >
+                        <p >{item.status}</p >
+                    </Link >
+                ))}
+            </div>
         </div>
     )
 }

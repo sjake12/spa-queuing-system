@@ -14,7 +14,6 @@ class ClearanceController extends Controller
 {
     public function index()
     {
-        $signingOffices = SigningOffice::all();
         $isClearanceOnGoing = DB::table('settings')
             ->where('key', 'isClearanceOnGoing')
             ->first();

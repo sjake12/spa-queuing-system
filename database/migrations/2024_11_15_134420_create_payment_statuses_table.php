@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('payments_id')
                 ->constrained('payments')
-                ->cascadeOnDelete();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->string('student_id');
             $table->foreign('student_id')
                 ->references('student_id')
                 ->on('students')
-                ->cascadeOnDelete();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->boolean('is_paid')->default(false);
             $table->timestamps();
         });

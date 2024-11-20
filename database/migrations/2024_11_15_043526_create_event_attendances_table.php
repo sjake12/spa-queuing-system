@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreign('student_id')
                 ->references('student_id')
                 ->on('students')
-                ->cascadeOnDelete();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->foreignId('event_id')->constrained('events', 'event_id');
             $table->boolean('attended')->default(false);
             $table->timestamps();

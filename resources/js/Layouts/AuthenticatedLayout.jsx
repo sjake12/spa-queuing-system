@@ -8,7 +8,7 @@ import PermissionGate from "@/Pages/Auth/PermissionGate.jsx";
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
     const student = user.student;
-
+    console.log(user);
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 

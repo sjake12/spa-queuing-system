@@ -12,7 +12,7 @@ export default function ClearanceStatus({signingOffices}) {
             </h2>
             <div className="flex flex-col gap-4">
                 {signingOffices.map((signingOffice, index) => (
-                    signingOffice.is_Active ??
+                    signingOffice.is_Active &&
                     <Link key={index}
                          className="flex py-6 px-6 border border-neutral-200 rounded-md justify-between shadow-sm hover:scale-[1.01] transition-transform"
                          href={route('clearance')}

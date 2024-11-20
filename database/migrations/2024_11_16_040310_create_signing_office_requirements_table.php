@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('signing_office_id')
                 ->constrained('signing_offices', 'office_id')
-                ->cascadeOnDelete();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->string('requirement_name');
             $table->timestamps();
         });

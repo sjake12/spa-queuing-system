@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreign('student_id')
                 ->references('student_id')
                 ->on('students')
-                ->cascadeOnDelete();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->boolean('is_cleared')->default(false);
             $table->timestamps();
         });

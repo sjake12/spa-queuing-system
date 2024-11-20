@@ -33,7 +33,6 @@ class HandleInertiaRequests extends Middleware
         $isClearanceOnGoing = DB::table('settings')
             ->where('key', 'isClearanceOnGoing')
             ->value('value');
-
         return [
             ...parent::share($request),
             'auth' => [

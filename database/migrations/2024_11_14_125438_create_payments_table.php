@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('for');
             $table->foreignId('office_id')
                 ->constrained('signing_offices', 'office_id')
-                ->cascadeOnDelete();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->date('deadline');
             $table->string('payment_type');
             $table->timestamps();

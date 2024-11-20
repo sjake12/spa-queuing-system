@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('clearance_id')
                 ->constrained('clearances', 'clearance_id')
-                ->cascadeOnDelete();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->foreignId('signing_office_id')
                 ->constrained('signing_offices', 'office_id')
-                ->cascadeOnDelete();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->boolean('is_approved')->default(false);
             $table->boolean('is_pending')->default(true);
             $table->timestamps();

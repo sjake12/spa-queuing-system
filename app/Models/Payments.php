@@ -16,12 +16,12 @@ class Payments extends Model
 
     public function paymentStatus(): HasMany
     {
-        return $this->hasMany(PaymentStatus::class,'payment_id','payment_id');
+        return $this->hasMany(PaymentStatus::class,'payments_id');
     }
 
     public function signingOffice(): BelongsTo
     {
-        $this->belongsTo(SigningOffice::class);
+        return $this->belongsTo(SigningOffice::class);
     }
 
     protected static function boot(): void

@@ -6,7 +6,8 @@ import ClearanceStatus from "@/Pages/Clearance/Partials/ClearanceStatus.jsx";
 
 export default function Clearance() {
     const { isClearanceOnGoing } = usePage().props.auth;
-    console.log(usePage().props.auth);
+    const signingOffices = usePage().props.signingOffices;
+
     return (
         <AuthenticatedLayout
             header={
@@ -24,7 +25,7 @@ export default function Clearance() {
                             {isClearanceOnGoing ? (
                                 <>
                                     <PermissionGate permission="view_clearances" >
-                                        <ClearanceStatus />
+                                        <ClearanceStatus signingOffices={signingOffices} />
                                     </PermissionGate>
 
                                     <PermissionGate permission="end_clearance" >

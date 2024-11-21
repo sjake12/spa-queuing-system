@@ -56,14 +56,14 @@ class Student extends Model
         );
     }
 
-    public function teams(): BelongsToMany
+    public function team(): BelongsToMany
     {
-        return $this->belongsToMany(SigningOffice::class, config('permission.table_names.model_has_roles'), 'model_id');
+        return $this->belongsToMany(SigningOffice::class, config('permission.table_names.model_has_roles'), 'model_id', 'office_id');
     }
 
     public function currentTeam(): BelongsTo
     {
-        return $this->belongsTo(SigningOffice::class, 'curren_team_id');
+        return $this->belongsTo(SigningOffice::class, 'current_team_id', 'office_id');
     }
 
     public function belongsToTeam(SigningOffice $signingOffice): bool

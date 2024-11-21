@@ -39,14 +39,14 @@ class RoleAndPermissionSeeder extends Seeder
         $permissions = [];
 
         switch ($role->name) {
-            case RoleEnum::MasterAdmin->value:
+            case RoleEnum::MasterAdmin:
                 $permissions = [
                     Permission::EDIT_OFFICE,
                     Permission::START_CLEARANCE,
                     Permission::END_CLEARANCE,
                 ];
                 break;
-            case RoleEnum::Admin->value:
+            case RoleEnum::Admin:
                 $permissions = [
                     Permission::ASSIGN_OFFICE,
                     Permission::VIEW_USER,
@@ -63,7 +63,7 @@ class RoleAndPermissionSeeder extends Seeder
                     Permission::DELETE_PAYMENT,
                 ];
                 break;
-            case RoleEnum::User->value:
+            case RoleEnum::User:
                 $permissions = [
                     Permission::VIEW_EVENTS,
                     Permission::VIEW_PAYMENT,

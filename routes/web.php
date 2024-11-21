@@ -4,6 +4,7 @@ use App\Http\Controllers\ClearanceController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QueueController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/payments/create', [PaymentsController::class, 'store'])->name('payments.store');
 
     // Queue
-    Route::get('/queue', fn() => Inertia::render('Queue'))->name('queue');
+    Route::get('/queue', [QueueController::class, 'index'])->name('queue');
 
     // Clearance
     Route::get('/clearance', [ClearanceController::class, 'index'] )->name('clearance');

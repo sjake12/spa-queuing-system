@@ -5,7 +5,7 @@ import PermissionGate from "@/Pages/Auth/PermissionGate.jsx";
 
 export default function Payments(){
     const { payments } = usePage().props;
-    console.log(payments);
+
     return (
         <AuthenticatedLayout
             header={

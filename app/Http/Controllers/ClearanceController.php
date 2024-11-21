@@ -24,20 +24,32 @@ class ClearanceController extends Controller
 
         return Inertia::render('Index/Clearance', [
             'signingOffices' => $clearanceSigningOffices->map(function ($clearanceSigningOffice) {
-               return [
-                   'office_name' => $clearanceSigningOffice->signingOffice->office_name,
-                   'is_active' => $clearanceSigningOffice->signingOffice->isActive,
-                   'is_approved' => $clearanceSigningOffice->is_approved,
-                   'is_pending' => $clearanceSigningOffice->is_pending,
-               ];
+                return [
+                    'office_id' => $clearanceSigningOffice->signingOffice->office_id,
+                    'office_name' => $clearanceSigningOffice->signingOffice->office_name,
+                    'is_active' => $clearanceSigningOffice->signingOffice->isActive,
+                    'is_approved' => $clearanceSigningOffice->is_approved,
+                    'is_pending' => $clearanceSigningOffice->is_pending,
+                ];
             }),
 
         ]);
     }
 
-    public function show()
+    public function show(SigningOffice $signingOffice)
     {
+        // show signing office clearance requirement
+        // event attendance
+        // fines
+        // others
         $studentId = auth()->user()->username;
+
+        return Inertia::render('Clearance/Show', [
+            'signingOffice' => [
+                'office_id' => $signingOffice->office_id,
+                'office_name' => $signingOffice->office_name,
+            ],
+        ]);
     }
 
     public function start()

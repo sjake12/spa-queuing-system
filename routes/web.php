@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Clearance
     Route::get('/clearance', [ClearanceController::class, 'index'] )->name('clearance');
+    Route::get('clearance/start/{signingOffice}', [ClearanceController::class, 'show'])->name('clearance.show');
     Route::post('clearance/start', [ClearanceController::class, 'start'])->name('clearance.start');
     Route::post('clearance/end', [ClearanceController::class, 'end'])->name('clearance.end');
 });

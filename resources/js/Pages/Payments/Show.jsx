@@ -4,7 +4,7 @@ import PrimaryButton from "@/Components/PrimaryButton.jsx";
 
 export default function Show(){
     const { payment } = usePage().props;
-    console.log(payment);
+
     return (
         <AuthenticatedLayout
             header={

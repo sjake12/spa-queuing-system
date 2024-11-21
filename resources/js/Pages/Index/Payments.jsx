@@ -14,7 +14,7 @@ export default function Payments(){
                         Payments
                     </h2 >
 
-                    <PermissionGate permission={'manage_payments'} >
+                    <PermissionGate permission="create_payment" >
                         <Link href={route('payments.create')} >
                             <PrimaryButton>
                                 Create Payments

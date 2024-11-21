@@ -29,6 +29,7 @@ export default function Clearance() {
                                     </PermissionGate>
 
                                     <PermissionGate permission="end_clearance" >
+                                        <p>Clearance is on going</p>
                                         <Link
                                             href={route('clearance.end')}
                                             method="post"

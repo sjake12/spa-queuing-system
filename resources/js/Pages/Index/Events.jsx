@@ -14,7 +14,7 @@ export default function Dashboard() {
                         Events
                     </h2 >
 
-                    <PermissionGate permission="manage_events" >
+                    <PermissionGate permission="create_event" >
                         <Link href={route('event.create')} >
                             <PrimaryButton>
                                 Create Event

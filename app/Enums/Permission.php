@@ -15,7 +15,7 @@ enum Permission: string
     case DELETE_USER = 'delete_user';
 
     // events
-    case VIEW_EVENTS = 'view_events';
+    case VIEW_EVENT = 'view_events';
     case CREATE_EVENT = 'create_event';
     case EDIT_EVENT = 'edit_event';
     case DELETE_EVENT = 'delete_event';

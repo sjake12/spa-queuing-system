@@ -98,7 +98,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <PermissionGate permission="manage_users">
+                                        <PermissionGate permission="create_user">
                                             <Dropdown.Link href={route('users')}>
                                                 Manage Users
                                             </Dropdown.Link>
@@ -189,7 +189,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <PermissionGate permission="add_user">
+                            <PermissionGate permission="create_user">
                                 <ResponsiveNavLink href={route('users.create')}>
                                     Add User
                                 </ResponsiveNavLink>

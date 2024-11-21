@@ -44,28 +44,29 @@ class RoleAndPermissionSeeder extends Seeder
                     Permission::EDIT_OFFICE,
                     Permission::START_CLEARANCE,
                     Permission::END_CLEARANCE,
+                    Permission::CREATE_USER,
+                    Permission::EDIT_USER,
+                    Permission::DELETE_USER,
                 ];
                 break;
             case RoleEnum::Admin:
                 $permissions = [
                     Permission::ASSIGN_OFFICE,
                     Permission::VIEW_USER,
-                    Permission::CREATE_USER,
-                    Permission::EDIT_USER,
-                    Permission::DELETE_USER,
-                    Permission::VIEW_USER,
-                    Permission::CREATE_USER,
-                    Permission::EDIT_USER,
-                    Permission::DELETE_USER,
+                    Permission::VIEW_EVENT,
+                    Permission::CREATE_EVENT,
+                    Permission::EDIT_EVENT,
+                    Permission::DELETE_EVENT,
                     Permission::VIEW_PAYMENT,
                     Permission::CREATE_PAYMENT,
                     Permission::EDIT_PAYMENT,
                     Permission::DELETE_PAYMENT,
+                    Permission::VIEW_CLEARANCES,
                 ];
                 break;
             case RoleEnum::User:
                 $permissions = [
-                    Permission::VIEW_EVENTS,
+                    Permission::VIEW_EVENT,
                     Permission::VIEW_PAYMENT,
                     Permission::VIEW_CLEARANCES,
                 ];

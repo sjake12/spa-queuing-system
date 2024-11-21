@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -37,21 +36,6 @@ class User extends Authenticatable
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'username', 'student_id');
-    }
-
-    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
-    public function hasRole($role)
-    {
-        return $this->roles->contains('name', $role);
-    }
-
-    public function hasPermission($permission)
-    {
-        return $this->roles->flatMap->permissions->contains('name', $permission);
     }
 
     /**

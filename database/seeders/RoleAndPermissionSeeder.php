@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permission;
-use App\Models\Role;
+use App\Enums\Permission;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\Role as RoleEnum;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+
+use function Symfony\Component\String\b;
 
 class RoleAndPermissionSeeder extends Seeder
 {
@@ -15,53 +17,61 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $master_admin = Role::create(['name' => 'master_admin']);
-        $admin = Role::create(['name' => 'admin']);
-        $user = Role::create(['name' => 'user']);
+        foreach (Permission::cases() as $permission) {
+            \Spatie\Permission\Models\Permission::create([
+                'name' => $permission,
+                'guard_name' => 'web',
+            ]);
+        }
 
-        $manageUsers = Permission::create(['name' => 'manage_users']);
-        $addUser = Permission::create(['name' => 'add_user']);
-        $editUser = Permission::create(['name' => 'edit_user']);
-        $manageEvents = Permission::create(['name' => 'manage_events']);
-        $viewEvents = Permission::create(['name' => 'view_events']);
-        $manage_payments = Permission::create(['name' => 'manage_payments']);
-        $viewPayments = Permission::create(['name' => 'view_payments']);
-        // Clearance Permissions
-        $start_clearance = Permission::create(['name' => 'start_clearance']);
-        $end_clearance = Permission::create(['name' => 'end_clearance']);
-        $manage_clearances = Permission::create(['name' => 'manage_clearances']);
-        $view_clearances = Permission::create(['name' => 'view_clearances']);
+        foreach (RoleEnum::cases() as $role) {
+            $role = Role::create([
+                'name' => $role,
+                'guard_name' => 'web',
+            ]);
 
-        $master_admin->permissions()->attach([
-            $addUser->id,
-            $editUser->id,
-            $manageEvents->id,
-            $viewEvents->id,
-            $manageUsers->id,
-            $manage_payments->id,
-            $viewPayments->id,
-            $start_clearance->id,
-            $end_clearance->id,
-            $manage_clearances->id,
-            $view_clearances->id,
-        ]);
+            $this->syncPermissionsToRole($role);
+        }
+    }
 
-        $admin->permissions()->attach([
-            $manageEvents->id,
-            $viewEvents->id,
-            $manage_payments->id,
-            $viewPayments->id,
-            $manage_clearances->id,
-        ]);
+    private function syncPermissionsToRole(Role $role): void
+    {
+        $permissions = [];
 
-        $user->permissions()->attach([
-            $viewEvents->id,
-            $viewPayments->id,
-            $view_clearances->id,
-        ]);
+        switch ($role->name) {
+            case RoleEnum::MasterAdmin->value:
+                $permissions = [
+                    Permission::EDIT_OFFICE,
+                    Permission::START_CLEARANCE,
+                    Permission::END_CLEARANCE,
+                ];
+                break;
+            case RoleEnum::Admin->value:
+                $permissions = [
+                    Permission::ASSIGN_OFFICE,
+                    Permission::VIEW_USER,
+                    Permission::CREATE_USER,
+                    Permission::EDIT_USER,
+                    Permission::DELETE_USER,
+                    Permission::VIEW_USER,
+                    Permission::CREATE_USER,
+                    Permission::EDIT_USER,
+                    Permission::DELETE_USER,
+                    Permission::VIEW_PAYMENT,
+                    Permission::CREATE_PAYMENT,
+                    Permission::EDIT_PAYMENT,
+                    Permission::DELETE_PAYMENT,
+                ];
+                break;
+            case RoleEnum::User->value:
+                $permissions = [
+                    Permission::VIEW_EVENTS,
+                    Permission::VIEW_PAYMENT,
+                    Permission::VIEW_CLEARANCES,
+                ];
+                break;
+        }
 
-        User::find(1)->roles()->attach($admin->id);
-        User::find(2)->roles()->attach($user->id);
-        User::find(3)->roles()->attach($master_admin->id);
+        $role->syncPermissions($permissions);
     }
 }

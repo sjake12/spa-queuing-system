@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('signing_offices', function (Blueprint $table) {
             $table->id('office_id');
             $table->string('office_name');
-            $table->integer('signing_sequence');
+            $table->integer('signing_sequence')->nullable();
             $table->boolean('isActive')->default(true);
             $table->timestamps();
         });

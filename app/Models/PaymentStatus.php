@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PaymentStatus extends Model
 {
+    protected $guarded = [];
+
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id', 'student_id');

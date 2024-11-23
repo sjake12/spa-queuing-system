@@ -5,7 +5,6 @@ import PermissionGate from "@/Pages/Auth/PermissionGate.jsx";
 
 export default function Payments(){
     const { payments } = usePage().props;
-
     return (
         <AuthenticatedLayout
             header={
@@ -69,7 +68,10 @@ export default function Payments(){
                                                 {payment.office}
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                {payment.deadline}
+                                                {payment.deadline === '' || payment.deadline === null ?
+                                                    'NA' :
+                                                    payment.deadline
+                                                }
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
                                                 {payment.status ? (

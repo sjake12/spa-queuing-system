@@ -45,6 +45,9 @@ export default function Dashboard() {
                                         <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
                                             Required
                                         </th >
+                                        <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
+                                            Attended
+                                        </th >
                                     </tr >
                                 </thead >
                                 <tbody className="bg-white divide-y divide-gray-200" >
@@ -61,6 +64,18 @@ export default function Dashboard() {
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
                                                 {event.required ? 'Yes' : 'No'}
+                                            </td >
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
+                                                {event.has_attended ? (
+                                                    <span className="bg-green-500 text-white font-bold text-[10px] rounded-full py-1 px-2 cursor-default">
+                                                        Yes
+                                                    </span>
+                                                ) : (
+                                                        <span className="bg-red-500 text-white font-bold text-[10px] rounded-full py-1 px-2 cursor-default">
+                                                            No
+                                                        </span>
+                                                    )
+                                                }
                                             </td >
                                         </tr >
                                     ))}

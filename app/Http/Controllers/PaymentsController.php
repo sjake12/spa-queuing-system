@@ -5,23 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Payments;
 use App\Models\PaymentStatus;
 use App\Models\SigningOffice;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class PaymentsController extends Controller
 {
     public function index()
     {
-        $payments =  Payments::all();
+        $studentId = auth()->user()->username;
+        $filteredPaymentStatuses= PaymentStatus::where('student_id', $studentId)->get();
 
         return Inertia::render('Index/Payments', [
-            'payments' => $payments->map(function ($payment) {
+            'payments' => $filteredPaymentStatuses->map(function ($paymentStatus) {
                 return [
-                    'id' => $payment->id,
-                    'amount' => $payment->amount,
-                    'for' => $payment->for,
-                    'office' => SigningOffice::where('office_id', $payment->office_id)->first()->office_name,
-                    'deadline' => $payment->deadline,
-                    'status' => PaymentStatus::where('payments_id', $payment->id)->first()->status,
+                    'id' => $paymentStatus->payments_id,
+                    'amount' => $paymentStatus->payments->amount,
+                    'for' => $paymentStatus->payments->for,
+                    'office' => SigningOffice::where('office_id', $paymentStatus->payments->office_id)->first()->office_name,
+                    'deadline' => $paymentStatus->payments->deadline,
+                    'status' => $paymentStatus->is_paid,
                 ];
             }),
         ]);

@@ -32,7 +32,10 @@ class Payments extends Model
             $students = \App\Models\Student::all();
 
             $paymentStatus = $students->map(function ($student) {
-                return ['student_id' => $student->student_id];
+                return [
+                    'student_id' => $student->student_id,
+                    'is_paid' => (bool) random_int(0, 1),
+                ];
             })->toArray();
 
             $payment->paymentStatus()->createMany($paymentStatus);

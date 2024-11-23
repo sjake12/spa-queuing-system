@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Clearance;
 use App\Models\ClearanceSigningOfficeStatus;
+use App\Models\Event;
 use App\Models\SigningOffice;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ class ClearanceController extends Controller
                     'office_id' => $clearanceSigningOffice->signingOffice->office_id,
                     'office_name' => $clearanceSigningOffice->signingOffice->office_name,
                     'is_active' => $clearanceSigningOffice->signingOffice->isActive,
+                    'signing_sequence' => $clearanceSigningOffice->signingOffice->signing_sequence,
                     'is_approved' => $clearanceSigningOffice->is_approved,
                     'is_pending' => $clearanceSigningOffice->is_pending,
                 ];
@@ -63,6 +65,8 @@ class ClearanceController extends Controller
         $students->map(function ($student) {
             $student->clearance()->create();
         });
+
+        Event::processUnattendedEvents();
 
         return redirect()->back()->with('success', 'Clearance has started');
     }

@@ -13,9 +13,10 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
+        $studentId = auth()->user()->username;
 
         return Inertia::render('Index/Events', [
-            'events' => $events->map(function ($event) {
+            'events' => $events->map(function ($event) use ($studentId) {
                 return [
                     'id' => $event->event_id,
                     'event_name' => $event->event_name,
@@ -23,6 +24,7 @@ class EventController extends Controller
                     'office' => SigningOffice::where('office_id', $event->signing_office)->first()->office_name,
                     'created_by' => Student::where('student_id', $event->created_by)->first()->first_name . ' ' . Student::where('student_id', $event->created_by)->first()->last_name,
                     'required' => $event->required,
+                    'has_attended' => $event->eventAttendances->where('student_id', $studentId)->first()->attended,
                 ];
             }),
         ]);

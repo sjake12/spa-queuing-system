@@ -19,8 +19,10 @@ export default function AuthenticatedLayout({ header, children }) {
                         <div className="flex" >
                             <div className="flex shrink-0 items-center" >
                                 <Link href="/" >
-                                    <img src="https://sksu.edu.ph/wp-content/uploads/2021/04/sksu1.png" alt="SKSU-logo"
-                                         className="block h-9 w-auto" />
+                                    <img src="https://sksu.edu.ph/wp-content/uploads/2021/04/sksu1.png"
+                                         alt="SKSU-logo"
+                                         className="block h-9 w-auto"
+                                    />
                                 </Link >
                             </div >
 

@@ -19,7 +19,7 @@ return new class extends Migration
                 ->constrained('signing_offices', 'office_id')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->date('deadline');
+            $table->date('deadline')->nullable();
             $table->string('payment_type');
             $table->timestamps();
         });

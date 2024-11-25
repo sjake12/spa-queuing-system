@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import InputLabel from "@/Components/InputLabel.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
@@ -21,9 +21,17 @@ export default function Create(){
     return (
         <AuthenticatedLayout
             header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800" >
-                    Add Student
-                </h2 >
+                <div className="flex justify-between" >
+                    <h2 className="text-xl font-semibold leading-tight text-gray-800" >
+                        Add Student
+                    </h2 >
+
+                    <Link href={route('users')} >
+                        <PrimaryButton className="bg-red-600 hover:bg-red-500" >
+                            Back
+                        </PrimaryButton >
+                    </Link >
+                </div >
             }
         >
             <Head title="Add Student" />
@@ -41,8 +49,8 @@ export default function Create(){
                             </p >
                         </header >
 
-                        <form onSubmit={submit} className="mt-6 space-y-6">
-                            <div>
+                        <form onSubmit={submit} className="mt-6 space-y-6" >
+                            <div >
                                 <InputLabel htmlFor="student_id" value="Student ID" />
 
                                 <TextInput
@@ -54,9 +62,9 @@ export default function Create(){
                                 />
 
                                 <InputError message={errors.student_id} />
-                            </div>
+                            </div >
 
-                            <div>
+                            <div >
                                 <InputLabel htmlFor="first_name" value="First Name" />
 
                                 <TextInput
@@ -68,9 +76,9 @@ export default function Create(){
                                 />
 
                                 <InputError message={errors.first_name} />
-                            </div>
+                            </div >
 
-                            <div>
+                            <div >
                                 <InputLabel htmlFor="last_name" value="Last Name" />
 
                                 <TextInput
@@ -82,9 +90,9 @@ export default function Create(){
                                 />
 
                                 <InputError message={errors.last_name} />
-                            </div>
+                            </div >
 
-                            <div>
+                            <div >
                                 <InputLabel htmlFor="course" value="Course" />
 
                                 <TextInput
@@ -96,13 +104,13 @@ export default function Create(){
                                 />
 
                                 <InputError message={errors.course} />
-                            </div>
+                            </div >
 
-                            <PrimaryButton disabled={processing}>Save</PrimaryButton>
-                        </form>
+                            <PrimaryButton disabled={processing} >Save</PrimaryButton >
+                        </form >
                     </div >
                 </div >
             </div >
         </AuthenticatedLayout >
-    )
-}
+        )
+    }

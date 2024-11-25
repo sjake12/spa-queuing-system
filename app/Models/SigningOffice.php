@@ -24,4 +24,9 @@ class SigningOffice extends Model
     {
         return $this->belongsToMany(Clearance::class);
     }
+
+    public function requirements(): HasMany
+    {
+        return $this->hasMany(Requirement::class, 'office_id', 'office_id');
+    }
 }

@@ -1,9 +1,10 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
-import { Head, useForm, usePage } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import InputLabel from "@/Components/InputLabel.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import InputError from "@/Components/InputError.jsx";
+import SecondaryButton from "@/Components/SecondaryButton.jsx";
 export default function Create(){
     const student = usePage().props.student;
 
@@ -105,6 +106,12 @@ export default function Create(){
                             </div>
 
                             <PrimaryButton disabled={processing}>Update</PrimaryButton>
+                            <Link
+                                href={route('users')}
+                                className="ml-4"
+                            >
+                                <SecondaryButton>Cancel</SecondaryButton>
+                            </Link>
                         </form>
                     </div >
                 </div >

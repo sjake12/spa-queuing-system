@@ -24,6 +24,20 @@ class Payments extends Model
         return $this->belongsTo(SigningOffice::class);
     }
 
+    public static function registerRequirement(): void
+    {
+        $paymentStatuses = PaymentStatus::where('is_paid', false)->get();
+
+        foreach ($paymentStatuses as $paymentStatus){
+            Requirement::firstOrCreate([
+                'office_id' => $paymentStatus->payments->office_id,
+                'requirement_name' => $paymentStatus->payments->for,
+                'requirement_type' => $paymentStatus->payments->payment_type,
+                'amount' =>  floatval($paymentStatus->payments->amount),
+            ]);
+        }
+    }
+
     protected static function boot(): void
     {
         parent::boot();

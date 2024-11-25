@@ -12,4 +12,6 @@ enum Role: string
 
     // view events, view payments, view clearances
     case User = 'user';
+
+
 }

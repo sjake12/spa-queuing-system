@@ -35,32 +35,39 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </NavLink >
                             </div >
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
-                                <NavLink
-                                    href={route('event')}
-                                    active={route().current('event')}
-                                >
-                                    Events
-                                </NavLink >
-                            </div >
+                            <PermissionGate permission="view_events">
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
+                                    <NavLink
+                                        href={route('event')}
+                                        active={route().current('event')}
+                                    >
+                                        Events
+                                    </NavLink >
+                                </div >
+                            </PermissionGate>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
-                                <NavLink
-                                    href={route('clearance')}
-                                    active={route().current('clearance')}
-                                >
-                                    Clearance
-                                </NavLink >
-                            </div >
+                            <PermissionGate permission="view_clearances">
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
+                                    <NavLink
+                                        href={route('clearance')}
+                                        active={route().current('clearance')}
+                                    >
+                                        Clearance
+                                    </NavLink >
+                                </div >
+                            </PermissionGate>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
-                                <NavLink
-                                    href={route('payments')}
-                                    active={route().current('payments')}
-                                >
-                                    Payments
-                                </NavLink >
-                            </div >
+                            <PermissionGate permission="view_payments">
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
+                                    <NavLink
+                                        href={route('payments')}
+                                        active={route().current('payments')}
+                                    >
+                                        Payments
+                                    </NavLink >
+                                </div >
+                            </PermissionGate>
+
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                 <NavLink
@@ -70,6 +77,18 @@ export default function AuthenticatedLayout({ header, children }) {
                                     Queue
                                 </NavLink >
                             </div >
+
+                            <PermissionGate permission="create_user" >
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
+                                    <NavLink
+                                        href={route('users')}
+                                        active={route().current('users')}
+                                    >
+                                        Manage Users
+                                    </NavLink
+                                    >
+                                </div >
+                            </PermissionGate >
                         </div >
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center" >
@@ -100,11 +119,6 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <PermissionGate permission="create_user">
-                                            <Dropdown.Link href={route('users')}>
-                                                Manage Users
-                                            </Dropdown.Link>
-                                        </PermissionGate>
                                         <Dropdown.Link
                                             href={route('profile.edit')}
                                         >
@@ -191,11 +205,6 @@ export default function AuthenticatedLayout({ header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <PermissionGate permission="create_user">
-                                <ResponsiveNavLink href={route('users.create')}>
-                                    Add User
-                                </ResponsiveNavLink>
-                            </PermissionGate>
                             <ResponsiveNavLink href={route('profile.edit')}>
                                 Profile
                             </ResponsiveNavLink>

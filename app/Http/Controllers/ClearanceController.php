@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Clearance;
 use App\Models\ClearanceSigningOfficeStatus;
 use App\Models\Event;
+use App\Models\Payments;
 use App\Models\SigningOffice;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -42,7 +43,9 @@ class ClearanceController extends Controller
     {
         // show signing office clearance requirement
         // event attendance
+        $events = Event::where('signing_office', $signingOffice->office_id)->get();
         // fines
+        $payments = Payments::where('office_id', $signingOffice->office_id)->get();
         // others
         $studentId = auth()->user()->username;
 
@@ -51,6 +54,8 @@ class ClearanceController extends Controller
                 'office_id' => $signingOffice->office_id,
                 'office_name' => $signingOffice->office_name,
             ],
+            'events' => $events,
+            'payments' => $payments,
         ]);
     }
 
@@ -67,6 +72,7 @@ class ClearanceController extends Controller
         });
 
         Event::processUnattendedEvents();
+        Payments::registerRequirement();
 
         return redirect()->back()->with('success', 'Clearance has started');
     }
@@ -80,6 +86,7 @@ class ClearanceController extends Controller
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('clearances')->truncate();
         DB::table('clearance_signing_office_statuses')->truncate();
+        DB::table('requirements')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         return redirect()->back()->with('success', 'Clearance has ended');

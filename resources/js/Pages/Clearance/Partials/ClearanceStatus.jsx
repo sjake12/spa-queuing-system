@@ -11,9 +11,9 @@ export default function ClearanceStatus({signingOffices}) {
                 Clearance Status
             </h2>
             <div className="flex flex-col gap-4">
-                {signingOffices.
-                    filter(signingOffice => signingOffice.is_active && signingOffice.signing_sequence).
-                    map((signingOffice, index) => (
+                {signingOffices
+                    .filter(signingOffice => signingOffice.is_active && signingOffice.signing_sequence)
+                    .map((signingOffice, index) => (
                         signingOffice.is_active &&
                         <Link key={index}
                               className="flex py-6 px-6 border border-neutral-200 rounded-md justify-between shadow-sm hover:scale-[1.01] transition-transform"

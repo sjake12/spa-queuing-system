@@ -13,5 +13,10 @@ enum Role: string
     // view events, view payments, view clearances
     case User = 'user';
 
-
+    case Librarian = 'librarian';
+    case PSITS = 'psits';
+    case CCSO = 'ccso';
+    case SBO = 'sbo';
+    case Program_Head = 'program_head';
+    case Dean = 'dean';
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class StudentController extends Controller
@@ -43,8 +44,11 @@ class StudentController extends Controller
 
     public function edit(Student $student)
     {
+        $roles = DB::table('roles')->get();
+
         return Inertia::render('Students/Edit', [
             'student' => $student->toArray(),
+            'roles' => $roles->toArray(),
         ]);
     }
 

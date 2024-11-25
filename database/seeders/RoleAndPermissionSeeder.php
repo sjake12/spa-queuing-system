@@ -69,6 +69,41 @@ class RoleAndPermissionSeeder extends Seeder
                     Permission::VIEW_EVENT,
                     Permission::VIEW_PAYMENT,
                     Permission::VIEW_CLEARANCES,
+                    Permission::QUEUE,
+                ];
+                break;
+            case RoleEnum::Dean:
+            case RoleEnum::Program_Head:
+            case RoleEnum::Librarian:
+                $permissions = [
+                    Permission::VIEW_USER,
+                    Permission::VIEW_CLEARANCES,
+                    Permission::SIGN_CLEARANCE,
+                    Permission::VIEW_REQUIREMENTS,
+                    Permission::CREATE_REQUIREMENT,
+                    Permission::EDIT_REQUIREMENT,
+                    Permission::DELETE_REQUIREMENT,
+                ];
+                break;
+            case RoleEnum::CCSO:
+            case RoleEnum::SBO:
+            case RoleEnum::PSITS:
+                $permissions = [
+                    Permission::VIEW_USER,
+                    Permission::VIEW_EVENT,
+                    Permission::CREATE_EVENT,
+                    Permission::EDIT_EVENT,
+                    Permission::DELETE_EVENT,
+                    Permission::VIEW_PAYMENT,
+                    Permission::CREATE_PAYMENT,
+                    Permission::EDIT_PAYMENT,
+                    Permission::DELETE_PAYMENT,
+                    Permission::VIEW_CLEARANCES,
+                    Permission::SIGN_CLEARANCE,
+                    Permission::VIEW_REQUIREMENTS,
+                    Permission::CREATE_REQUIREMENT,
+                    Permission::EDIT_REQUIREMENT,
+                    Permission::DELETE_REQUIREMENT,
                 ];
                 break;
         }

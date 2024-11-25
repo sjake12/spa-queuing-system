@@ -40,19 +40,6 @@ class StudentFactory extends Factory
         });
     }
 
-    public function libraryAdmin(): static
-    {
-        return $this->afterCreating(function (Student $student) {
-            $signingOffice = SigningOffice::firstOrCreate(['office_name' => 'Library']);
-
-            $student->update(['current_team_id' => $signingOffice->office_id]);
-
-            setPermissionsTeamId($signingOffice->office_id);
-
-            $student->assignRole(Role::Admin);
-        });
-    }
-
     public function user(): static
     {
         return $this->afterCreating(function (Student $student) {
@@ -63,6 +50,84 @@ class StudentFactory extends Factory
             setPermissionsTeamId($signingOffice->office_id);
 
             $student->assignRole(Role::User);
+        });
+    }
+
+    public function libraryAdmin(): static
+    {
+        return $this->afterCreating(function (Student $student) {
+            $signingOffice = SigningOffice::firstOrCreate(['office_name' => 'Library']);
+
+            $student->update(['current_team_id' => $signingOffice->office_id]);
+
+            setPermissionsTeamId($signingOffice->office_id);
+
+            $student->assignRole(Role::Librarian);
+        });
+    }
+
+    public function psitsAdmin(): static
+    {
+        return $this->afterCreating(function (Student $student) {
+            $signingOffice = SigningOffice::firstOrCreate(['office_name' => 'Library']);
+
+            $student->update(['current_team_id' => $signingOffice->office_id]);
+
+            setPermissionsTeamId($signingOffice->office_id);
+
+            $student->assignRole(Role::PSITS);
+        });
+    }
+
+    public function ccsoAdmin(): static
+    {
+        return $this->afterCreating(function (Student $student) {
+            $signingOffice = SigningOffice::firstOrCreate(['office_name' => 'Library']);
+
+            $student->update(['current_team_id' => $signingOffice->office_id]);
+
+            setPermissionsTeamId($signingOffice->office_id);
+
+            $student->assignRole(Role::CCSO);
+        });
+    }
+
+    public function sboAdmin(): static
+    {
+        return $this->afterCreating(function (Student $student) {
+            $signingOffice = SigningOffice::firstOrCreate(['office_name' => 'Library']);
+
+            $student->update(['current_team_id' => $signingOffice->office_id]);
+
+            setPermissionsTeamId($signingOffice->office_id);
+
+            $student->assignRole(Role::SBO);
+        });
+    }
+
+    public function programHead(): static
+    {
+        return $this->afterCreating(function (Student $student) {
+            $signingOffice = SigningOffice::firstOrCreate(['office_name' => 'Library']);
+
+            $student->update(['current_team_id' => $signingOffice->office_id]);
+
+            setPermissionsTeamId($signingOffice->office_id);
+
+            $student->assignRole(Role::Program_Head);
+        });
+    }
+
+    public function dean(): static
+    {
+        return $this->afterCreating(function (Student $student) {
+            $signingOffice = SigningOffice::firstOrCreate(['office_name' => 'Library']);
+
+            $student->update(['current_team_id' => $signingOffice->office_id]);
+
+            setPermissionsTeamId($signingOffice->office_id);
+
+            $student->assignRole(Role::Dean);
         });
     }
 }

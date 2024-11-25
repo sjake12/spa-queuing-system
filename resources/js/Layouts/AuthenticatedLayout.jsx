@@ -2,7 +2,7 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PermissionGate from "@/Pages/Auth/PermissionGate.jsx";
 
 export default function AuthenticatedLayout({ header, children }) {
@@ -10,7 +10,6 @@ export default function AuthenticatedLayout({ header, children }) {
     const student = user.student;
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="border-b border-gray-100 bg-white">
@@ -57,6 +56,17 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </div >
                             </PermissionGate>
 
+                            <PermissionGate permission="start_clearance">
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
+                                    <NavLink
+                                        href={route('clearance')}
+                                        active={route().current('clearance')}
+                                    >
+                                        Clearance
+                                    </NavLink >
+                                </div >
+                            </PermissionGate>
+
                             <PermissionGate permission="view_payments">
                                 <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                     <NavLink
@@ -68,15 +78,16 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </div >
                             </PermissionGate>
 
-
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
-                                <NavLink
-                                    href={route('queue')}
-                                    active={route().current('queue')}
-                                >
-                                    Queue
-                                </NavLink >
-                            </div >
+                            <PermissionGate permission="queue">
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
+                                    <NavLink
+                                        href={route('queue')}
+                                        active={route().current('queue')}
+                                    >
+                                        Queue
+                                    </NavLink >
+                                </div >
+                            </PermissionGate>
 
                             <PermissionGate permission="create_user" >
                                 <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
@@ -92,7 +103,10 @@ export default function AuthenticatedLayout({ header, children }) {
                         </div >
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center" >
-                            <div className="relative ms-3" >
+                            <div className="relative ms-3 flex items-center" >
+                                <span className="inline-flex rounded-md text-sm font-medium text-gray-500" >
+                                    {user.role}
+                                </span >
                                 <Dropdown >
                                     <Dropdown.Trigger >
                                         <span className="inline-flex rounded-md" >

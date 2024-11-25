@@ -5,14 +5,22 @@ import TextInput from "@/Components/TextInput.jsx";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import InputError from "@/Components/InputError.jsx";
 import SecondaryButton from "@/Components/SecondaryButton.jsx";
-export default function Create(){
-    const student = usePage().props.student;
 
-    const {data, setData, patch, processing, errors} = useForm({
+export default function Create() {
+    const { student, roles } = usePage().props;
+    console.log(roles[2].name);
+    const {
+        data,
+        setData,
+        patch,
+        processing,
+        errors
+    } = useForm({
         student_id: student.student_id,
         first_name: student.first_name,
         last_name: student.last_name,
         course: student.course,
+        role: "",
     });
 
     const submit = (e) => {
@@ -44,8 +52,8 @@ export default function Create(){
                             </p >
                         </header >
 
-                        <form onSubmit={submit} className="mt-6 space-y-6">
-                            <div>
+                        <form onSubmit={submit} className="mt-6 space-y-6" >
+                            <div >
                                 <InputLabel htmlFor="student_id" value="Student ID" />
 
                                 <TextInput
@@ -58,9 +66,9 @@ export default function Create(){
                                 />
 
                                 <InputError message={errors.student_id} />
-                            </div>
+                            </div >
 
-                            <div>
+                            <div >
                                 <InputLabel htmlFor="first_name" value="First Name" />
 
                                 <TextInput
@@ -73,9 +81,9 @@ export default function Create(){
                                 />
 
                                 <InputError message={errors.first_name} />
-                            </div>
+                            </div >
 
-                            <div>
+                            <div >
                                 <InputLabel htmlFor="last_name" value="Last Name" />
 
                                 <TextInput
@@ -88,9 +96,9 @@ export default function Create(){
                                 />
 
                                 <InputError message={errors.last_name} />
-                            </div>
+                            </div >
 
-                            <div>
+                            <div >
                                 <InputLabel htmlFor="course" value="Course" />
 
                                 <TextInput
@@ -103,16 +111,36 @@ export default function Create(){
                                 />
 
                                 <InputError message={errors.course} />
-                            </div>
+                            </div >
 
-                            <PrimaryButton disabled={processing}>Update</PrimaryButton>
+                            <div >
+                                <InputLabel htmlFor="role" value="Role" />
+
+                                <select
+                                    id="role"
+                                    name="role"
+                                    className="mt-1 block w-[50%] p-2 border-gray-300 rounded-md shadow-sm"
+                                    value={roles[2].name}
+                                    onChange={(e) => setData('role', e.target.value)}
+                                >
+                                    {roles.map((role) => (
+                                        <option key={role.id} value={role.id} >
+                                            {role.name}
+                                        </option >
+                                    ))}
+                                </select >
+
+                                <InputError message={errors.role} />
+                            </div >
+
+                            <PrimaryButton disabled={processing} >Update</PrimaryButton >
                             <Link
                                 href={route('users')}
                                 className="ml-4"
                             >
-                                <SecondaryButton>Cancel</SecondaryButton>
-                            </Link>
-                        </form>
+                                <SecondaryButton >Cancel</SecondaryButton >
+                            </Link >
+                        </form >
                     </div >
                 </div >
             </div >

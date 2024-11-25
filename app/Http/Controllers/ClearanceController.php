@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Clearance;
 use App\Models\ClearanceSigningOfficeStatus;
 use App\Models\Event;
 use App\Models\Payments;
+use App\Models\Requirement;
 use App\Models\SigningOffice;
 use App\Models\Student;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -41,21 +40,18 @@ class ClearanceController extends Controller
 
     public function show(SigningOffice $signingOffice)
     {
-        // show signing office clearance requirement
-        // event attendance
-        $events = Event::where('signing_office', $signingOffice->office_id)->get();
-        // fines
-        $payments = Payments::where('office_id', $signingOffice->office_id)->get();
-        // others
-        $studentId = auth()->user()->username;
-
+        // query the requirements of the ff signing office
+        $requirements = Requirement::where('office_id', $signingOffice->office_id)->get();
         return Inertia::render('Clearance/Show', [
-            'signingOffice' => [
-                'office_id' => $signingOffice->office_id,
-                'office_name' => $signingOffice->office_name,
-            ],
-            'events' => $events,
-            'payments' => $payments,
+            'requirements' => $requirements->map(function ($requirement) {
+                return [
+                    'requirement_id' => $requirement->requirement_id,
+                    'requirement_name' => $requirement->requirement_name,
+                    'requirement_type' => $requirement->requirement_type,
+                    'amount' => $requirement->amount,
+                ];
+            }),
+            'office_name' =>   $signingOffice->office_name,
         ]);
     }
 

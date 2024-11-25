@@ -20,7 +20,15 @@ export default function ClearanceStatus({signingOffices}) {
                               href={route('clearance.show', signingOffice.office_id)}
                         >
                             <h3 className="font-bold text-lg">{signingOffice.office_name}</h3 >
-                            <p >{signingOffice.is_pending ? 'Pending' : 'Ready'}</p >
+                            <p >{signingOffice.is_pending ? (
+                                <span className="text-red-500">
+                                    Pending
+                                </span>
+                            ) : (
+                                <span className="text-green-500">
+                                    Ready
+                                </span>
+                            )}</p >
                         </Link >
                     ))}
             </div>

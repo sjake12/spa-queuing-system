@@ -1,10 +1,11 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import { Head, Link, usePage } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
+import SearchBar from "@/Components/SearchBar.jsx";
 
 export default function Students() {
     const { students } = usePage().props;
-
+    console.log(students);
     return (
         <AuthenticatedLayout
             header={
@@ -27,6 +28,7 @@ export default function Students() {
                 <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8" >
                     <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8" >
                         <div className="p-6 text-gray-900" >
+                            <SearchBar />
                             <table className="min-w-full divide-y divide-gray-200" >
                                 <thead >
                                     <tr >
@@ -57,9 +59,16 @@ export default function Students() {
                                                 <Link href={route('users.edit', student.student_id)} className="py-2 px-4 bg-blue-700 hover:bg-blue-500 text-white rounded-md mr-2">
                                                     Edit
                                                 </Link>
-                                                <Link href={route('users.delete', student.student_id)} className="py-2 px-4 bg-red-700 hover:bg-red-500 text-white rounded-md">
+                                                <button
+                                                    onClick={() => {
+                                                        if (confirm('Are you sure you want to delete this student?')) {
+                                                            window.location.href = route('users.delete', student.student_id);
+                                                        }
+                                                    }}
+                                                    className="py-2 px-4 bg-red-700 hover:bg-red-500 text-white rounded-md"
+                                                >
                                                     Delete
-                                                </Link>
+                                                </button >
                                             </td >
                                         </tr >
                                     ))}

@@ -30,4 +30,14 @@ enum Permission: string
     case START_CLEARANCE = 'start_clearance';
     case END_CLEARANCE = 'end_clearance';
     case VIEW_CLEARANCES = 'view_clearances';
+    case SIGN_CLEARANCE = 'sign_clearance';
+
+    // Requirements
+    case VIEW_REQUIREMENTS = 'view_requirements';
+    case CREATE_REQUIREMENT = 'create_requirement';
+    case EDIT_REQUIREMENT = 'edit_requirement';
+    case DELETE_REQUIREMENT = 'delete_requirement';
+
+    // Queue
+    case QUEUE = 'queue';
 }

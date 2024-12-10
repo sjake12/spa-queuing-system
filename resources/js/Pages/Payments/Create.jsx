@@ -10,7 +10,6 @@ export default function Create(){
     const { data, setData, post, errors } = useForm({
         'amount': '',
         'for': '',
-        'office': '',
         'deadline': '',
     });
 
@@ -74,22 +73,7 @@ export default function Create(){
                                 </div >
 
                                 <div className="mt-4">
-                                    <InputLabel htmlFor="office" value="Office" />
-
-                                    <TextInput
-                                        id="office"
-                                        type="text"
-                                        name="office"
-                                        className="mt-1 block w-full"
-                                        value={data.office}
-                                        onChange={(e) => setData('office', e.target.value)}
-                                    />
-
-                                    <InputError message={errors.office} className="mt-2" />
-                                </div >
-
-                                <div className="mt-4">
-                                    <InputLabel htmlFor="deadline" value="Office" />
+                                    <InputLabel htmlFor="deadline" value="Deadline" />
 
                                     <TextInput
                                         id="deadline"

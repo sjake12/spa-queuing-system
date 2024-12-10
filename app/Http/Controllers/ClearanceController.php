@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ClearanceSigningOfficeStatus;
 use App\Models\Event;
 use App\Models\Payments;
+use App\Models\PaymentStatus;
 use App\Models\Requirement;
 use App\Models\SigningOffice;
 use App\Models\Student;
@@ -40,18 +41,19 @@ class ClearanceController extends Controller
 
     public function show(SigningOffice $signingOffice)
     {
-        // query the requirements of the ff signing office
-        $requirements = Requirement::where('office_id', $signingOffice->office_id)->get();
+        $requirements = Payments::where('office_id', $signingOffice->office_id)->get();
+
         return Inertia::render('Clearance/Show', [
             'requirements' => $requirements->map(function ($requirement) {
                 return [
-                    'requirement_id' => $requirement->requirement_id,
-                    'requirement_name' => $requirement->requirement_name,
-                    'requirement_type' => $requirement->requirement_type,
+                    'requirement_id' => $requirement->id,
+                    'requirement_name' => $requirement->for,
+                    'requirement_type' => $requirement->payment_type,
                     'amount' => $requirement->amount,
+                    'is_paid' => $requirement->paymentStatus->where('student_id', auth()->user()->student->student_id)->first()->is_paid,
                 ];
             }),
-            'office_name' =>   $signingOffice->office_name,
+            'office_name' =>  $signingOffice->office_name,
         ]);
     }
 
@@ -86,5 +88,23 @@ class ClearanceController extends Controller
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         return redirect()->back()->with('success', 'Clearance has ended');
+    }
+
+    public function updateClearanceSigningOfficeStatus()
+    {
+        // Get all clearance signing office statuses
+        $clearanceSigningOfficeStatuses = ClearanceSigningOfficeStatus::all();
+
+        foreach ($clearanceSigningOfficeStatuses as $status) {
+            // Check if there are any requirements for this status's signing office and clearance
+            $hasRequirements = Requirement::where('office_id', $status->signing_office_id)
+                ->exists();
+
+            // If no requirements exist, set is_pending to false
+            if (!$hasRequirements) {
+                $status->is_pending = false;
+                $status->save();
+            }
+        }
     }
 }

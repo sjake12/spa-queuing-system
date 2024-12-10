@@ -74,21 +74,6 @@ export default function Create(){
                                 </div >
 
                                 <div className="mt-4">
-                                    <InputLabel htmlFor="office" value="Office" />
-
-                                    <TextInput
-                                        id="office"
-                                        type="text"
-                                        name="office"
-                                        className="mt-1 block w-full"
-                                        value={data.office}
-                                        onChange={(e) => setData('office', e.target.value)}
-                                    />
-
-                                    <InputError message={errors.event_time} className="mt-2" />
-                                </div >
-
-                                <div className="mt-4">
                                     <label className="flex items-center">
                                         <Checkbox
                                             name="isRequired"

@@ -7,6 +7,7 @@ import ClearanceStatus from "@/Pages/Clearance/Partials/ClearanceStatus.jsx";
 export default function Clearance() {
     const { isClearanceOnGoing } = usePage().props.auth;
     const signingOffices = usePage().props.signingOffices;
+
     return (
         <AuthenticatedLayout
             header={

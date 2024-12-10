@@ -2,9 +2,11 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.jsx';
 import { Head, Link, usePage } from '@inertiajs/react';
 import PermissionGate from '@/Pages/Auth/PermissionGate.jsx';
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
+import { Check, X } from 'lucide-react';
 
 export default function Dashboard() {
     const { events } = usePage().props;
+    const { role } = usePage().props.auth.user;
 
     return (
         <AuthenticatedLayout
@@ -45,13 +47,15 @@ export default function Dashboard() {
                                         <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
                                             Required
                                         </th >
-                                        <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
-                                            Attended
-                                        </th >
+                                        { role === 'student' && (
+                                            <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
+                                                Attended
+                                            </th >
+                                        )}
                                     </tr >
                                 </thead >
                                 <tbody className="bg-white divide-y divide-gray-200" >
-                                    {events.map((event) => (
+                                {events.map((event) => (
                                         <tr key={event.id} >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
                                                 {event.event_name}
@@ -63,22 +67,34 @@ export default function Dashboard() {
                                                 {event.office}
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                {event.required ? 'Yes' : 'No'}
-                                            </td >
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                {event.has_attended ? (
-                                                    <span className="bg-green-500 text-white font-bold text-[10px] rounded-full py-1 px-2 cursor-default">
-                                                        Yes
-                                                    </span>
+                                                {event.required ? (
+                                                    <Check
+                                                        className="bg-green-500 text-white rounded-full"
+                                                    />
                                                 ) : (
-                                                        <span className="bg-red-500 text-white font-bold text-[10px] rounded-full py-1 px-2 cursor-default">
-                                                            No
-                                                        </span>
-                                                    )
-                                                }
+                                                    <x
+                                                        className="bg-red-500 text-white rounded-full"
+                                                    />
+                                                )}
                                             </td >
+                                            { role === 'student' && (
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
+                                                    {event.has_attended ? (
+                                                        <span
+                                                            className="bg-green-500 text-white font-bold text-[10px] rounded-full py-1 px-2 cursor-default" >
+                                                        Yes
+                                                    </span >
+                                                    ) : (
+                                                        <span
+                                                            className="bg-red-500 text-white font-bold text-[10px] rounded-full py-1 px-2 cursor-default" >
+                                                            No
+                                                        </span >
+                                                    )
+                                                    }
+                                                </td >
+                                            )}
                                         </tr >
-                                    ))}
+                                ))}
                                 </tbody >
                             </table >
                             {/*<div className="mt-4 flex gap-2" >*/}

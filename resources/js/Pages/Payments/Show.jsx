@@ -1,6 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import { Link, usePage } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
+import GCashPayment from "@/Components/GCashPayment.jsx";
+import { Button } from "@mui/material";
 
 export default function Show(){
     const { payment } = usePage().props;
@@ -32,14 +34,25 @@ export default function Show(){
                                 <p>Amount : {payment.amount}</p>
                                 <p>For : {payment.for}</p>
                                 <p>Office : {payment.office}</p>
-                                <p>Deadline : {payment.deadline}</p>
+                                <p>Deadline : {payment.deadline === null ? 'NA' : payment.deadline}</p>
                                 <p>Type : {payment.type}</p>
                             </div>
                             <div className="mt-6">
-                                <strong className="block">Pay through Gcash:</strong>
-                                <PrimaryButton className="mt-2" disabled>
-                                    Pay Now
-                                </PrimaryButton>
+                                <strong className="block mb-2">Pay through Gcash:</strong>
+                                { payment.status ? (
+                                    <Button
+                                        variant="contained"
+                                        disabled={true}
+                                    >
+                                        Paid
+                                    </Button>
+                                ) :
+                                <GCashPayment
+                                    amount={payment.amount}
+                                    description={payment.for}
+                                    type={payment.type}
+                                    paymentId={payment.payment_id}
+                                />}
                             </div>
                         </div>
                     </div>

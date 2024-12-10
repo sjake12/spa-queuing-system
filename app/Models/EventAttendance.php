@@ -11,6 +11,8 @@ class EventAttendance extends Model
     /** @use HasFactory<\Database\Factories\EventAttendanceFactory> */
     use HasFactory;
 
+    protected $guarded = [];
+
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id', 'student_id');

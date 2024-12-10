@@ -4,10 +4,12 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import PermissionGate from "@/Pages/Auth/PermissionGate.jsx";
+import { Chip } from "@mui/material";
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
     const student = user.student;
+    const role = user.role;
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
     return (
@@ -56,16 +58,18 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </div >
                             </PermissionGate>
 
-                            <PermissionGate permission="start_clearance">
-                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
-                                    <NavLink
-                                        href={route('clearance')}
-                                        active={route().current('clearance')}
-                                    >
-                                        Clearance
-                                    </NavLink >
-                                </div >
-                            </PermissionGate>
+                            { role === 'user' || role === 'master_admin' && (
+                                <PermissionGate permission="start_clearance">
+                                    <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
+                                        <NavLink
+                                            href={route('clearance')}
+                                            active={route().current('clearance')}
+                                        >
+                                            Clearance
+                                        </NavLink >
+                                    </div >
+                                </PermissionGate>
+                            )}
 
                             <PermissionGate permission="view_payments">
                                 <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
@@ -100,12 +104,30 @@ export default function AuthenticatedLayout({ header, children }) {
                                     >
                                 </div >
                             </PermissionGate >
+
+                            { (role === 'psits' || role === 'ccso' || role === 'sbo')
+                                && (
+                                    <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
+                                        <NavLink
+                                            // href={route('users')}
+                                            // active={route().current('users')}
+                                        >
+                                            Student Payments
+                                        </NavLink
+                                        >
+                                    </div >
+                                )}
                         </div >
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center" >
                             <div className="relative ms-3 flex items-center" >
                                 <span className="inline-flex rounded-md text-sm font-medium text-gray-500" >
-                                    {user.role}
+                                    {user.role === 'user' ?
+                                        (
+                                            <Chip label="student" size="small" variant="outline" />
+                                        ) : (
+                                            <Chip label={user.role} size="small" variant="outline" />
+                                        )}
                                 </span >
                                 <Dropdown >
                                     <Dropdown.Trigger >

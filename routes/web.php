@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClearanceController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\PayMongoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QueueController;
 use App\Http\Controllers\StudentController;
@@ -31,8 +32,11 @@ Route::middleware(['auth'])->group(function () {
     // Payments
     Route::get('/payments', [PaymentsController::class, 'index'])->name('payments');
     Route::get('/payments/create', [PaymentsController::class, 'create'])->name('payments.create');
-    Route::get('/payments/{payments}', [PaymentsController::class, 'show'])->name('payments.show');
     Route::post('/payments/create', [PaymentsController::class, 'store'])->name('payments.store');
+    Route::get('/payments/{payments}', [PaymentsController::class, 'show'])->name('payments.show');
+
+    // Payment Status
+    Route::patch('/payments/{payments}', [PaymentsController::class, 'pay'])->name('payments.pay');
 
     // Queue
     Route::get('/queue', [QueueController::class, 'index'])->name('queue');
@@ -47,6 +51,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // PayMongo
+    Route::post('/create-gcash-payment', [PayMongoController::class, 'createGCashPayment']);
+    Route::post('/paymongo/webhook', [PayMongoController::class, 'handlePaymentWebhook']);
+    Route::get('/payment-return', [PayMongoController::class, 'handlePaymentReturn']);
 });
 
 require __DIR__.'/auth.php';

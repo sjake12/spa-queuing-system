@@ -1,4 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
+import { Button } from "@mui/material";
 
 export default function ClearanceStatus({signingOffices}) {
     // fetch the clearance status from the server
@@ -10,7 +11,7 @@ export default function ClearanceStatus({signingOffices}) {
             <h2 className="font-semibold text-2xl mb-6">
                 Clearance Status
             </h2>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 mb-6">
                 {signingOffices
                     .filter(signingOffice => signingOffice.is_active && signingOffice.signing_sequence)
                     .map((signingOffice, index) => (
@@ -32,6 +33,20 @@ export default function ClearanceStatus({signingOffices}) {
                         </Link >
                     ))}
             </div>
-        </div>
+
+
+            <div >
+                <p className="mb-2">
+                    Complete your requirements and queue for clearance
+                </p >
+                <Button
+                    className="mt-4"
+                    variant="contained"
+                    disabled={!signingOffices.every(signingOffice => !signingOffice.is_pending)}
+                >
+                    Queue for Clearance
+                </Button >
+            </div >
+        </div >
     )
 }

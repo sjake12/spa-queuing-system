@@ -59,7 +59,7 @@ export default function Payments(){
                                     {payments.map((payment) => (
                                         <tr key={payment.id} >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                {payment.amount}
+                                                {parseFloat(payment.amount).toFixed(2)}
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
                                                 {payment.for}

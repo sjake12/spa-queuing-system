@@ -98,7 +98,6 @@ class RoleAndPermissionSeeder extends Seeder
                     Permission::CREATE_PAYMENT,
                     Permission::EDIT_PAYMENT,
                     Permission::DELETE_PAYMENT,
-                    Permission::VIEW_CLEARANCES,
                     Permission::SIGN_CLEARANCE,
                     Permission::VIEW_REQUIREMENTS,
                     Permission::CREATE_REQUIREMENT,

@@ -10,6 +10,8 @@ class Event extends Model
 {
     /** @use HasFactory<\Database\Factories\EventFactory> */
     use HasFactory;
+
+    protected $guarded = [];
     protected $primaryKey = 'event_id';
 
     public function eventAttendances(): HasMany
@@ -68,7 +70,7 @@ class Event extends Model
                 return [
                     'event_id' => $event->event_id,
                     'student_id' => $student->student_id,
-                    'attended' => (bool)random_int(0, 1),
+                    'attended' => false,
                 ];
             })->toArray();
 

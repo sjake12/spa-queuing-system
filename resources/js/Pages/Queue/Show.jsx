@@ -1,25 +1,33 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
-import { Head, usePage } from "@inertiajs/react";
-import { Box, Step, StepLabel, Stepper } from "@mui/material";
+import { Head } from "@inertiajs/react";
+import { Box, Step, StepLabel, Stepper, Typography } from "@mui/material";
 
-export default function Queue(){
-    const { signing_offices } = usePage().props;
+export default function Show({ signing_offices, status }){
+    const officeNames = [
+        'Librarian',
+        'PSITS OFFICER',
+        'CCSO OFFICER',
+        'SBO OFFICER',
+        'PROGRAM HEAD',
+        'DEAN',
+    ];
+
     return (
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800" >
-                    Queue
+                    Your Queue
                 </h2 >
             }
         >
-            <Head title="Queue" />
+            <Head title="Queue Updates" />
 
             <div className="py-12" >
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8" >
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg" >
                         <div className="p-6 text-gray-900" >
                             <Box sx={{ width: '100%' }}>
-                                <Stepper activeStep={1} alternativeLabel>
+                                <Stepper activeStep={status.signing_office_id} alternativeLabel>
                                     {signing_offices
                                         .filter(signingOffice => signingOffice.is_active && signingOffice.signing_sequence)
                                         .sort((a, b) => a.signing_sequence - b.signing_sequence)
@@ -31,6 +39,13 @@ export default function Queue(){
                                     }
                                 </Stepper>
                             </Box>
+                            <div className="mt-20 flex justify-center">
+                                <Typography className="mt-6" variant="h6">
+                                    <span className="text-gray-500">
+                                            {officeNames[status.signing_office_id - 1]} is processing your clearance
+                                    </span>
+                                </Typography>
+                            </div>
                         </div >
                     </div >
                 </div >

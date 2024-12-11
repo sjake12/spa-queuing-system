@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Enums\Permission;
+use App\Models\SigningOffice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Middleware;
@@ -59,6 +60,7 @@ class HandleInertiaRequests extends Middleware
                     'role' => $role,
                     'permissions' => $permissions,
                     'student' => $request->user()->student,
+                    'office_id' => SigningOffice::where('office_name', $request->user()->student->rolesWithoutTeam->first()->name)->value('office_id'),
                 ] : null,
                 'isClearanceOnGoing' => $isClearanceOnGoing,
             ],

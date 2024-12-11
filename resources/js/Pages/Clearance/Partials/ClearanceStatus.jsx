@@ -1,7 +1,7 @@
 import { Link, usePage } from "@inertiajs/react";
 import { Button } from "@mui/material";
 
-export default function ClearanceStatus({signingOffices}) {
+export default function ClearanceStatus({ signingOffices, isQueued }) {
     // fetch the clearance status from the server
     const { clearanceStatus } = usePage().props;
 
@@ -39,13 +39,24 @@ export default function ClearanceStatus({signingOffices}) {
                 <p className="mb-2">
                     Complete your requirements and queue for clearance
                 </p >
-                <Button
-                    className="mt-4"
-                    variant="contained"
-                    disabled={!signingOffices.every(signingOffice => !signingOffice.is_pending)}
-                >
-                    Queue for Clearance
-                </Button >
+                { isQueued ? (
+                    <Button
+                        className="mt-4"
+                        variant="contained"
+                        disabled
+                    >
+                        You are in Queue
+                    </Button >
+                ) : (
+                    <Button
+                        className="mt-4"
+                        variant="contained"
+                        disabled={!signingOffices.every(signingOffice => !signingOffice.is_pending)}
+                        href={route('queue.start')}
+                    >
+                        Queue for Clearance
+                    </Button >
+                )}
             </div >
         </div >
     )

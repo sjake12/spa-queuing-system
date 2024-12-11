@@ -1,28 +1,64 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
-import { Head, Link } from "@inertiajs/react";
-import React from "react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
+import React, { useState } from "react";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
-import { Button } from "@mui/material";
+import { Button, IconButton, Snackbar } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
-export default function Show({ requirements, office_name }) {
+export default function Student({ payments, student, officeId, queueId }) {
+    const [open, setOpen] = useState(false);
+    const { post } = useForm();
+
+    const submit = () => {
+        post(route('queue.approve', queueId), {
+            onSuccess: () => {
+                setOpen(true);
+                router.visit(route('queue.office', officeId));
+            }
+        });
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    }
+
+    const action = (
+        <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleClose}>
+                UNDO
+            </Button>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+            <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
 
     return (
         <AuthenticatedLayout
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="text-xl font-semibold leading-tight text-gray-800" >
-                        {office_name}
+                        {`${student.student_name}'s Payments`}
                     </h2 >
 
-                    <Link href={route('clearance')} >
-                        <PrimaryButton className="bg-red-500">
+                    <Link href={route('queue.office', officeId)} >
+                        <PrimaryButton >
                             Back
                         </PrimaryButton>
                     </Link>
                 </div >
             }
         >
-            <Head title={`${office_name} - Requirements`} />
+            <Head title={`${student.student_name} - Requirements`} />
 
             <div className="py-12" >
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8" >
@@ -46,51 +82,57 @@ export default function Show({ requirements, office_name }) {
                                         <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
                                             Status
                                         </th >
-                                        <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
-                                            Actions
-                                        </th >
                                     </tr >
                                 </thead >
                                 <tbody className="bg-white divide-y divide-gray-200" >
-                                    {requirements.length > 0 ? requirements.map((requirement) => (
-                                        <tr key={requirement.requirement_id} >
+                                    {payments.length > 0 ? payments.map((requirement) => (
+                                        <tr key={requirement.payment_id} >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                {requirement.requirement_name}
+                                                {requirement.payment_name}
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                {requirement.requirement_type}
+                                                {requirement.payment_type}
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
                                                 {requirement.amount}
                                             </td >
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
                                                 {requirement.is_paid ? (
-                                                    <span className="bg-green-500 text-white py-1 px-2 rounded-md">
+                                                    <span className="bg-green-500 text-white py-1 px-2 rounded-md" >
                                                         Paid
-                                                    </span>
+                                                    </span >
                                                 ) : (
-                                                    <span className="bg-red-500 text-white py-1 px-2 rounded-md">
+                                                    <span className="bg-red-500 text-white py-1 px-2 rounded-md" >
                                                         Unpaid
-                                                    </span>
+                                                    </span >
                                                 )}
-                                            </td >
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
-                                                <Button
-                                                    size="small"
-                                                    variant="contained"
-                                                    href={route('payments.show', requirement.requirement_id)}
-                                                >
-                                                    View
-                                                </Button >
                                             </td >
                                         </tr >
                                     )) : (
                                         <p className="w-full mt-8 font-bold text-red-500 text-center" >
                                             No requirements found!
-                                        </p>
+                                        </p >
                                     )}
                                 </tbody >
                             </table >
+                            <div className="mt-6" >
+                                <Button
+                                    variant="contained"
+                                    color="success"
+                                    onClick={submit}
+                                >
+                                    Approve
+                                </Button >
+                            </div >
+                        </div >
+                        <div >
+                            <Snackbar
+                                open={open}
+                                autoHideDuration={6000}
+                                onClose={handleClose}
+                                message="Student Approved"
+                                action={action}
+                            />
                         </div >
                     </div >
                 </div >

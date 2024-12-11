@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Queue Connection Name
+    | Default Show Connection Name
     |--------------------------------------------------------------------------
     |
     | Laravel's queue supports a variety of backends via a single, unified
@@ -17,7 +17,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Queue Connections
+    | Show Connections
     |--------------------------------------------------------------------------
     |
     | Here you may configure the connection options for every queue backend
@@ -92,7 +92,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Failed Queue Jobs
+    | Failed Show Jobs
     |--------------------------------------------------------------------------
     |
     | These options configure the behavior of failed queue job logging so you

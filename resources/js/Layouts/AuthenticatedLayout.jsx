@@ -7,11 +7,11 @@ import PermissionGate from "@/Pages/Auth/PermissionGate.jsx";
 import { Chip } from "@mui/material";
 
 export default function AuthenticatedLayout({ header, children }) {
+    const { student, role, office_id } = usePage().props.auth.user;
     const user = usePage().props.auth.user;
-    const student = user.student;
-    const role = user.role;
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="border-b border-gray-100 bg-white">
@@ -47,19 +47,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </div >
                             </PermissionGate>
 
-                            <PermissionGate permission="view_clearances">
-                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
-                                    <NavLink
-                                        href={route('clearance')}
-                                        active={route().current('clearance')}
-                                    >
-                                        Clearance
-                                    </NavLink >
-                                </div >
-                            </PermissionGate>
-
-                            { role === 'user' || role === 'master_admin' && (
-                                <PermissionGate permission="start_clearance">
+                            { role === 'user' && (
+                                <PermissionGate permission="view_clearances">
                                     <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                         <NavLink
                                             href={route('clearance')}
@@ -85,8 +74,8 @@ export default function AuthenticatedLayout({ header, children }) {
                             <PermissionGate permission="queue">
                                 <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                     <NavLink
-                                        href={route('queue')}
-                                        active={route().current('queue')}
+                                        href={route('queue.show', student.student_id)}
+                                        active={route().current('queue.show')}
                                     >
                                         Queue
                                     </NavLink >
@@ -105,18 +94,19 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </div >
                             </PermissionGate >
 
-                            { (role === 'psits' || role === 'ccso' || role === 'sbo')
-                                && (
+                            { office_id && (
+                                <PermissionGate permission="sign_clearance" >
                                     <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                         <NavLink
-                                            // href={route('users')}
-                                            // active={route().current('users')}
+                                            href={route('queue.office', office_id)}
+                                            active={route().current('queue.office')}
                                         >
-                                            Student Payments
+                                            Office Queue
                                         </NavLink
                                         >
                                     </div >
-                                )}
+                                </PermissionGate >
+                            )}
                         </div >
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center" >

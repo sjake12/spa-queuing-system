@@ -40,12 +40,17 @@ Route::middleware(['auth'])->group(function () {
 
     // Queue
     Route::get('/queue', [QueueController::class, 'index'])->name('queue');
+    Route::get('/queue/start', [QueueController::class, 'startQueue'])->name('queue.start');
+    Route::get('/queue/{student}', [QueueController::class, 'show'])->name('queue.show');
+    Route::get('/queue/{student}/clearance', [QueueController::class, 'studentClearance'])->name('queue.show-clearance');
+    Route::post('/queues/{queue}/approve', [QueueController::class, 'approveQueue'])->name('queue.approve');
+    Route::get('/queue/admin/{signingOffice}', [QueueController::class, 'officeQueue'])->name('queue.office');
 
     // Clearance
     Route::get('/clearance', [ClearanceController::class, 'index'] )->name('clearance');
-    Route::get('clearance/start/{signingOffice}', [ClearanceController::class, 'show'])->name('clearance.show');
-    Route::post('clearance/start', [ClearanceController::class, 'start'])->name('clearance.start');
-    Route::post('clearance/end', [ClearanceController::class, 'end'])->name('clearance.end');
+    Route::post('/clearance/start', [ClearanceController::class, 'start'])->name('clearance.start');
+    Route::post('/clearance/end', [ClearanceController::class, 'end'])->name('clearance.end');
+    Route::get('/clearance/{signingOffice}', [ClearanceController::class, 'show'])->name('clearance.show');
 
     //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

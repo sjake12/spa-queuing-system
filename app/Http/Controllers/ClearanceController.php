@@ -6,6 +6,7 @@ use App\Models\ClearanceSigningOfficeStatus;
 use App\Models\Event;
 use App\Models\Payments;
 use App\Models\PaymentStatus;
+use App\Models\Queue;
 use App\Models\Requirement;
 use App\Models\SigningOffice;
 use App\Models\Student;
@@ -35,7 +36,7 @@ class ClearanceController extends Controller
                     'is_pending' => $clearanceSigningOffice->is_pending,
                 ];
             }),
-
+            'isQueued' => Queue::where('student_id', auth()->user()->student->student_id)->exists(),
         ]);
     }
 

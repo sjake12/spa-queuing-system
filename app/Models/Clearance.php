@@ -26,15 +26,24 @@ class Clearance extends Model
             $signingOffices = SigningOffice::all();
 
             $signingOfficeStatuses = $signingOffices->map(function ($signingOffice) use ($clearance) {
+                // Check if there are any unpaid payments for this office and student
+                $hasPendingPayments = PaymentStatus::whereHas('payments', function ($query) use ($signingOffice) {
+                    $query->where('office_id', $signingOffice->office_id);
+                })
+                ->where('student_id', $clearance->student_id)
+                ->where('is_paid', false)
+                ->exists();
                 return [
                     'clearance_id' => $clearance->clearance_id,
-                    'signing_office_id' => $signingOffice->office_id
+                    'signing_office_id' => $signingOffice->office_id,
+                    'is_pending' => $hasPendingPayments
                 ];
             })->toArray();
 
             $clearance->signingOfficeStatuses()->createMany($signingOfficeStatuses);
         });
     }
+
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id', 'student_id');

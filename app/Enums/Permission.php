@@ -38,6 +38,6 @@ enum Permission: string
     case EDIT_REQUIREMENT = 'edit_requirement';
     case DELETE_REQUIREMENT = 'delete_requirement';
 
-    // Queue
+    // Show
     case QUEUE = 'queue';
 }

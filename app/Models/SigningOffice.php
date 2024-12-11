@@ -29,4 +29,9 @@ class SigningOffice extends Model
     {
         return $this->hasMany(Requirement::class, 'office_id', 'office_id');
     }
+
+    public function queues()
+    {
+        return $this->hasMany(Queue::class, 'signing_office_id');
+    }
 }

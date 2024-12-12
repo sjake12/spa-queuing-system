@@ -27,7 +27,7 @@ export default function Show({ signing_offices, status }){
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg" >
                         <div className="p-6 text-gray-900" >
                             <Box sx={{ width: '100%' }}>
-                                <Stepper activeStep={status.signing_office_id} alternativeLabel>
+                                <Stepper activeStep={status.signing_office_id - 1} alternativeLabel>
                                     {signing_offices
                                         .filter(signingOffice => signingOffice.is_active && signingOffice.signing_sequence)
                                         .sort((a, b) => a.signing_sequence - b.signing_sequence)

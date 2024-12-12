@@ -47,7 +47,7 @@ export default function Dashboard() {
                                         <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
                                             Required
                                         </th >
-                                        { role === 'student' && (
+                                        { role === 'user' && (
                                             <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
                                                 Attended
                                             </th >
@@ -77,7 +77,7 @@ export default function Dashboard() {
                                                     />
                                                 )}
                                             </td >
-                                            { role === 'student' && (
+                                            { role === 'user' && (
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900" >
                                                     {event.has_attended ? (
                                                         <span

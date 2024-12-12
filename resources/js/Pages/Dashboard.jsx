@@ -1,7 +1,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
+import StudentDashboard from "@/Components/StudentDashboard.jsx";
 
-export default function Dashboard() {
+export default function Dashboard({ queueUpdate, paymentStatus, eventAttendance }) {
+    const { role } = usePage().props.auth.user;
     return (
         <AuthenticatedLayout
             header={
@@ -14,26 +16,13 @@ export default function Dashboard() {
 
             <div className="py-12" >
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8" >
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" >
-                        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg" >
-                            <div className="p-6 text-gray-900" >
-                                Students on Queue
-                                <p >12345</p >
-                            </div >
-                        </div >
-                        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg" >
-                            <div className="p-6 text-gray-900" >
-                                Cleared Students
-                                <p >12345</p >
-                            </div >
-                        </div >
-                        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg" >
-                            <div className="p-6 text-gray-900" >
-                                Students on Queue
-                                <p >12345</p >
-                            </div >
-                        </div >
-                    </div >
+                    { role === 'user' &&
+                        <StudentDashboard
+                            queueUpdate={queueUpdate}
+                            paymentStatus={paymentStatus}
+                            eventAttendance={eventAttendance}
+                        />
+                    }
                 </div >
             </div >
         </AuthenticatedLayout >

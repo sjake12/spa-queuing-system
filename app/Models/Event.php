@@ -70,7 +70,7 @@ class Event extends Model
                 return [
                     'event_id' => $event->event_id,
                     'student_id' => $student->student_id,
-                    'attended' => false,
+                    'attended' => (bool) rand(0, 1),
                 ];
             })->toArray();
 

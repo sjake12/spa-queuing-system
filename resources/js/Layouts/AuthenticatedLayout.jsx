@@ -5,6 +5,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import PermissionGate from "@/Pages/Auth/PermissionGate.jsx";
 import { Chip } from "@mui/material";
+import Chatbot from "@/Components/Chatbot.jsx";
 
 export default function AuthenticatedLayout({ header, children }) {
     const { student, role, office_id } = usePage().props.auth.user;
@@ -253,7 +254,7 @@ export default function AuthenticatedLayout({ header, children }) {
                     </div>
                 </header>
             )}
-
+            <Chatbot />
             <main>{children}</main>
         </div>
     );
